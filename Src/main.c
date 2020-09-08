@@ -98,6 +98,8 @@ bsp_poweron();
 bsp_selftest();
 bsp_init();
 SysTaskInit();
+//lcd12864_test();
+//testshow(0xaa,0x55);   //Ñ©»¨
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -106,7 +108,7 @@ SysTaskInit();
   {
 	  RunTask();
     /* USER CODE END WHILE */
-		
+
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */

@@ -1,5 +1,6 @@
 #include "TaskManage.h"
 #include "KeyScanTask.h"
+#include "WeighTask.h"
 
 SYS_TIM  SysTim;
 volatile u8	_1MS_Event;
@@ -17,6 +18,7 @@ void SysTaskInit(void)
 	SysTim.SumNumber = 0;
 	
 	KeyScanTaskInit();
+	WeighTaskInit();
 }
 //运行所有的任务
 void RunTask(void)
@@ -24,6 +26,7 @@ void RunTask(void)
 	if(_10MS_Event)	{
 		_10MS_Event = 0;
 		KeyScanTaskProcess();
+		WeighTaskProcess();
 	}
 }
 //任务tick

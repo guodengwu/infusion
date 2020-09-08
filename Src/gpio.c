@@ -59,10 +59,10 @@ void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(GPIOC, AD5V_CTRL_Pin|BEEP_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, AD3_3V_CTRL_Pin|LCD_CS_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(AD3_3V_CTRL_GPIO_Port, AD3_3V_CTRL_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, LCD_RST_Pin|BLE_WAKEUP_Pin|BLE_RST_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, LCD_CS_Pin|LCD_RST_Pin|BLE_WAKEUP_Pin|BLE_RST_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(BLE_SHDN_GPIO_Port, BLE_SHDN_Pin, GPIO_PIN_RESET);
