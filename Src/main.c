@@ -99,7 +99,9 @@ bsp_selftest();
 bsp_init();
 SysTaskInit();
 //lcd12864_test();
-//testshow(0xaa,0x55);   //Ñ©»¨
+ble_getmac();
+ble_getfwver();
+ble_setadvinter(6);
   /* USER CODE END 2 */
 
   /* Infinite loop */

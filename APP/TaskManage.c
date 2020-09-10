@@ -1,6 +1,7 @@
 #include "TaskManage.h"
 #include "KeyScanTask.h"
 #include "WeighTask.h"
+#include "BLETask.h"
 
 SYS_TIM  SysTim;
 volatile u8	_1MS_Event;
@@ -19,6 +20,7 @@ void SysTaskInit(void)
 	
 	KeyScanTaskInit();
 	WeighTaskInit();
+	BLETaskInit();
 }
 //运行所有的任务
 void RunTask(void)
@@ -27,6 +29,10 @@ void RunTask(void)
 		_10MS_Event = 0;
 		KeyScanTaskProcess();
 		WeighTaskProcess();
+	}
+	if(_1S_Event)	{
+		_1S_Event = 0;
+		BLETaskProcess();
 	}
 }
 //任务tick

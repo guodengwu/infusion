@@ -24,6 +24,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "TaskManage.h"
+#include "bsp_ble.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -200,16 +201,45 @@ TaskTick();
 /******************************************************************************/
 
 /**
+  * @brief This function handles EXTI line[9:5] interrupts.
+  */
+void EXTI9_5_IRQHandler(void)
+{
+  /* USER CODE BEGIN EXTI9_5_IRQn 0 */
+
+  /* USER CODE END EXTI9_5_IRQn 0 */
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_6);
+  /* USER CODE BEGIN EXTI9_5_IRQn 1 */
+
+  /* USER CODE END EXTI9_5_IRQn 1 */
+}
+
+/**
   * @brief This function handles USART1 global interrupt.
   */
 void USART1_IRQHandler(void)
 {
+	u8 rxdat;
   /* USER CODE BEGIN USART1_IRQn 0 */
-
+	if(__HAL_UART_GET_FLAG(ble.port, UART_IT_RXNE)==SET)	{
+		__HAL_UART_CLEAR_FLAG(ble.port, UART_IT_RXNE);
+		rxdat = (uint8_t)(ble.port->Instance->DR);
+		if(ble.puart_t->rx_indicate!=NULL)	{
+			ble.puart_t->rx_indicate(ble.puart_t, rxdat);
+		}
+	}
   /* USER CODE END USART1_IRQn 0 */
   HAL_UART_IRQHandler(&huart1);
   /* USER CODE BEGIN USART1_IRQn 1 */
-
+	if(__HAL_UART_GET_FLAG(ble.port, UART_FLAG_ORE)==SET)	{
+		__HAL_UART_CLEAR_OREFLAG(ble.port);
+		rxdat = (uint8_t)(ble.port->Instance->DR);
+//		__HAL_UART_CLEAR_IT(usart.port, UART_CLEAR_OREF);
+	}
+//	if(__HAL_UART_GET_FLAG(ble.port, UART_CLEAR_TCF)==SET)	{
+//		ble.port->gState = HAL_UART_STATE_READY;
+////		__HAL_UART_CLEAR_FLAG(ble.port,UART_CLEAR_TCF);
+//	}
   /* USER CODE END USART1_IRQn 1 */
 }
 

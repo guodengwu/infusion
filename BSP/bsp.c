@@ -1,6 +1,7 @@
 #include "bsp.h"
 #include "ad7799.h"
 #include "bsp_12864.h"
+#include "bsp_ble.h"
 ////////////////////////////////////
 //IO≈‰÷√∫Ø ˝
 void	bsp_init(void)
@@ -17,6 +18,7 @@ void bsp_poweron(void)
 	PWRCTRL_AD3_3V(PWR_ON);
 	PWRCTRL_LCD5V(PWR_ON);
 	PWRCTRL_LCD3_3V(PWR_ON);
+	PWRCTRL_BLE(PWR_ON);
 	HAL_Delay(10);
 }
 

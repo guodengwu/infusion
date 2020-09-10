@@ -102,10 +102,8 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(AD7799_CS_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PBPin PBPin PBPin PBPin 
-                           PBPin */
-  GPIO_InitStruct.Pin = KEY4_Pin|Bub_State_Pin|BLE_DON_Pin|BLE_STATE_Pin 
-                          |BLE_DIN_Pin;
+  /*Configure GPIO pins : PBPin PBPin PBPin PBPin */
+  GPIO_InitStruct.Pin = KEY4_Pin|Bub_State_Pin|BLE_STATE_Pin|BLE_DIN_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
@@ -137,14 +135,52 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_MEDIUM;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
+  /*Configure GPIO pin : PtPin */
+  GPIO_InitStruct.Pin = BLE_DON_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING_FALLING;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(BLE_DON_GPIO_Port, &GPIO_InitStruct);
+
   /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI9_5_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI9_5_IRQn);
+
   HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 
 }
 
 /* USER CODE BEGIN 2 */
-
+#include "sys_bits.h"
+#include "sys_types.h"
+#include "sys_defs.h"
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+	u8 data;
+	
+    if(GPIO_Pin == BLE_DON_Pin) /* KEY0 */
+    {
+		data = HAL_GPIO_ReadPin(BLE_DON_GPIO_Port, BLE_DON_Pin);
+		ble_ready2rec(data);
+    }
+//	else if(GPIO_Pin == SENSOR_BUBBLE1_Pin)	{
+////		sys_error.Y2.bits.b3 = SENSOR_ERROR;
+//		bubble[BUBBLE_ID1].flag = BUBBLE_TBC;
+//		bubble[BUBBLE_ID1].DetCnt = 0;
+//	}
+//	else if(GPIO_Pin == SENSOR_BUBBLE2_Pin)	{
+////		sys_error.Y2.bits.b4 = SENSOR_ERROR;
+//		bubble[BUBBLE_ID2].flag = BUBBLE_TBC;
+//		bubble[BUBBLE_ID2].DetCnt = 0;
+//	}
+//	else if(GPIO_Pin == SENSOR_BUBBLE3_Pin)	{
+////		sys_error.Y2.bits.b5 = SENSOR_ERROR;
+//		bubble[BUBBLE_ID3].flag = BUBBLE_TBC;
+//		bubble[BUBBLE_ID3].DetCnt = 0;
+//	}
+//	else
+//		BubbleOffDetectCntReset(GPIO_Pin);
+}
 /* USER CODE END 2 */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

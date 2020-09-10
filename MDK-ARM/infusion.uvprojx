@@ -369,7 +369,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32L151xBA</Define>
               <Undefine></Undefine>
-              <IncludePath>../Inc; ../Drivers/STM32L1xx_HAL_Driver/Inc; ../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy; ../Drivers/CMSIS/Device/ST/STM32L1xx/Include; ../Drivers/CMSIS/Include; ..\BSP; ..\USER; ..\APP</IncludePath>
+              <IncludePath>../Inc;  ../Drivers/STM32L1xx_HAL_Driver/Inc;  ../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy;  ../Drivers/CMSIS/Device/ST/STM32L1xx/Include;  ../Drivers/CMSIS/Include;  ..\BSP;  ..\USER;  ..\APP</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -437,6 +437,11 @@
               <FileType>1</FileType>
               <FilePath>..\BSP\bsp_12864.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_ble.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BSP\bsp_ble.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -466,6 +471,11 @@
               <FileName>WeighTask.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\APP\WeighTask.c</FilePath>
+            </File>
+            <File>
+              <FileName>BLETask.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\APP\BLETask.c</FilePath>
             </File>
           </Files>
         </Group>

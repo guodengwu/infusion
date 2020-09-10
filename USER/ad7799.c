@@ -161,5 +161,6 @@ u8 StartADDataCollect(void)
 		bsp_ad7799_mode_set(ad7799.pdev);
 		ad7799.status = AD7799_MEASURE;
 	}
+	return 0;
 }
 

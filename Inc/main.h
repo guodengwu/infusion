@@ -111,6 +111,7 @@ void Error_Handler(void);
 #define BLE_WAKEUP_GPIO_Port GPIOB
 #define BLE_DON_Pin GPIO_PIN_6
 #define BLE_DON_GPIO_Port GPIOB
+#define BLE_DON_EXTI_IRQn EXTI9_5_IRQn
 #define BLE_RST_Pin GPIO_PIN_7
 #define BLE_RST_GPIO_Port GPIOB
 #define BLE_STATE_Pin GPIO_PIN_8
