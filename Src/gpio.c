@@ -49,8 +49,9 @@ void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, Bub5V_CTRL_Pin|PWR_CTRL_Pin|LCD5V_CTRL_Pin|LCD_BK_CTRL_Pin 
-                          |LCD3_3V_CTRL_Pin|LED_BLUE_Pin|LED_YELLOW_Pin|LED_RED_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOC, LCD_A0_Pin|Bub5V_CTRL_Pin|PWR_CTRL_Pin|LCD5V_CTRL_Pin 
+                          |LCD_BK_CTRL_Pin|LCD3_3V_CTRL_Pin|LED_BLUE_Pin|LED_YELLOW_Pin 
+                          |LED_RED_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, PWR_5V_CTRL_Pin|AD7799_CS_Pin, GPIO_PIN_SET);
@@ -59,13 +60,20 @@ void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(GPIOC, AD5V_CTRL_Pin|BEEP_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(AD3_3V_CTRL_GPIO_Port, AD3_3V_CTRL_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOB, AD3_3V_CTRL_Pin|LCD_CS_Pin|LCD_RST_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, LCD_CS_Pin|LCD_RST_Pin|BLE_WAKEUP_Pin|BLE_RST_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, LCD_SCK_Pin|LCD_SDA_Pin|BLE_WAKEUP_Pin|BLE_RST_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(BLE_SHDN_GPIO_Port, BLE_SHDN_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin : PtPin */
+  GPIO_InitStruct.Pin = LCD_A0_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(LCD_A0_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PCPin PCPin PCPin PCPin 
                            PCPin PCPin PCPin */
@@ -126,6 +134,13 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : PBPin PBPin */
+  GPIO_InitStruct.Pin = LCD_SCK_Pin|LCD_SDA_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PCPin PCPin PCPin */

@@ -39,6 +39,6 @@ enum _bleuart_status {
 
 extern _ble_t ble;
 void bleuart_init(void);
-
+void ble_senddata(u8 *pdata, u8 len);
 #endif
 

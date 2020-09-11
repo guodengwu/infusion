@@ -15,6 +15,6 @@ void BLETaskProcess(void)
 {
 	ble.state = BLE_CONNECT_STATE();
 	if(ble.state == DEF_ON&&BLE_SEND_STATE()!=DEF_Busy)	{//CONNECTED
-		ble_senddata(bletestdata, strlen(bletestdata));
+		ble_senddata((u8 *)bletestdata, strlen(bletestdata));
 	}
 }

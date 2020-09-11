@@ -219,8 +219,8 @@ void EXTI9_5_IRQHandler(void)
   */
 void USART1_IRQHandler(void)
 {
-	u8 rxdat;
   /* USER CODE BEGIN USART1_IRQn 0 */
+	u8 rxdat;
 	if(__HAL_UART_GET_FLAG(ble.port, UART_IT_RXNE)==SET)	{
 		__HAL_UART_CLEAR_FLAG(ble.port, UART_IT_RXNE);
 		rxdat = (uint8_t)(ble.port->Instance->DR);

@@ -90,7 +90,6 @@ PWRCTRL_SYSON();
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_SPI1_Init();
-  MX_SPI2_Init();
   MX_USART1_UART_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
@@ -98,7 +97,7 @@ bsp_poweron();
 bsp_selftest();
 bsp_init();
 SysTaskInit();
-//lcd12864_test();
+lcd12864_test();
 ble_getmac();
 ble_getfwver();
 ble_setadvinter(6);
