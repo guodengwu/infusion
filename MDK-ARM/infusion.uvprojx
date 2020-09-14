@@ -452,6 +452,11 @@
               <FileType>1</FileType>
               <FilePath>..\USER\ad7799.c</FilePath>
             </File>
+            <File>
+              <FileName>display_ui.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\display_ui.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

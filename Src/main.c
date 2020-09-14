@@ -97,12 +97,13 @@ bsp_poweron();
 bsp_selftest();
 bsp_init();
 SysTaskInit();
-lcd12864_test();
+//lcd12864_test();
 ble_getmac();
 ble_getfwver();
 ble_setadvinter(6);
   /* USER CODE END 2 */
-
+//PaiQiUI(0xff);
+lcd12864_test();
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)

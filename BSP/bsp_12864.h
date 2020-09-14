@@ -14,6 +14,8 @@ typedef struct _lcd12864_dev {
 } lcd12864_t;
 
 lcd12864_t *bsp_lcd12864_init(void);
-
+void lcd12864_ClearRAM(void);
+u8 lcd12864_HZ16_16(u8 x, u8 y, u8 *pstr, u8 num);
+void lcd12864_string(u8 page, u8 col, char *pstr);
 #endif
 
