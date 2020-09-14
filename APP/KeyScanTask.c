@@ -1,15 +1,17 @@
 #include "KeyScanTask.h"
+#include "display_ui.h"
 
 #define	READ_KEY1()				HAL_GPIO_ReadPin(KEY1_GPIO_Port, KEY1_Pin)
 #define	READ_KEY2()				HAL_GPIO_ReadPin(KEY2_GPIO_Port, KEY2_Pin)
 #define	READ_KEY3()				HAL_GPIO_ReadPin(KEY3_GPIO_Port, KEY3_Pin)
 #define	READ_KEY4()				HAL_GPIO_ReadPin(KEY4_GPIO_Port, KEY4_Pin)
 
-#define KEYSCAN_NUM				10
+#define KEYSCAN_NUM				10//每10ms扫描一次按键，确认10次
 #define KEYLONGPRESS_NUM		300
 #define KEYNIANLIAN_NUM			3000
 
 u8 gKeyValue;
+message_pkt_t msg_pkt_keyscan;
 
 static u8 ReadKeyVal(void)
 {
@@ -49,8 +51,8 @@ static void KeyScan(void)
 		if(KeyVal!=0)	{//长按类型处理
 			if(LongPressCnt >= KEYNIANLIAN_NUM)	{//按键黏连 连续按下30s
 			}		
-			else if(LongPressCnt >= KEYLONGPRESS_NUM)	{//长按 连续按下2s
-				gKeyValue |= KEY_LONGPRESS;
+			else if(LongPressCnt >= KEYLONGPRESS_NUM)	{//长按 连续按下3s
+				gKeyValue = KeyVal| KEY_LONGPRESS;
 			}
 			LongPressCnt++;
 		}
@@ -69,13 +71,43 @@ void KeyScanTaskInit(void)
 void KeyScanTaskProcess(void)
 {
 	KeyScan();
-	if(gKeyValue&KEY_LONGPRESS)	{
-		gKeyValue = KEY_NONE;
-	}
-	else	{
-		if(gKeyValue == KEY_OK)	{
-			PWRCTRL_SYSOFF();
+	if(gKeyValue != KEY_NONE)	{
+		if(gKeyValue&KEY_LONGPRESS)	{
+			gKeyValue &= ~KEY_LONGPRESS;
+			if(gKeyValue == KEY_OK)	{
+				Sys.state |= SYSSTATE_SHUTDOWN_TB;
+				ShutDownUI(0);
+			}
+			gKeyValue = KEY_NONE;
 		}
-		gKeyValue = KEY_NONE;
+		else	{
+			switch(gKeyValue)	
+			{
+				case KEY_OK:
+					if(Sys.state & SYSSTATE_SHUTDOWN)	{
+						PWRCTRL_SYSOFF();
+					}
+					else	{
+						Sys.state &= ~SYSSTATE_SHUTDOWN_TB;
+						msg_pkt_keyscan.Src = UIBK_MSG;
+						StartUITask(&msg_pkt_keyscan);
+					}
+					break;
+				case KEY_ADD:
+					if(Sys.state & SYSSTATE_SHUTDOWN_TB)	{
+						ShutDownUI(1);
+						Sys.state |= SYSSTATE_SHUTDOWN;
+					}
+					break;
+				case KEY_DEL:
+					if(Sys.state & SYSSTATE_SHUTDOWN_TB)	{
+						ShutDownUI(0);					
+					}
+					break;
+				default:
+					break;
+			}
+			gKeyValue = KEY_NONE;
+		}
 	}
 }

@@ -110,19 +110,19 @@ void lcd12864_WriteScreen(u8 *DisplayData)	// DisplayData should be 132x32/8 byt
 	}
 }
 
-//----清屏函数----------------
-void lcd12864_ClearRAM(void)
+//----任意字节填充屏幕----------------
+void lcd12864_FillRAM(u8 page_start, u8 page_end, u8 col_start, u8 col_end, u8 data)
 {
-	u16 i,j;
+	u8 i,j;
 	
-	for(i=0;i<4;i++)
+	for(i=page_start;i<page_end;i++)
 	{
 		lcd12864_wrcmd(0xb0 | i);	// select page
-		lcd12864_wrcmd(0x10);	    // start form column 0
-		lcd12864_wrcmd(0x00);	    // (2byte command)
-		for(j=0;j<132;j++)
+		lcd12864_wrcmd(0x10|col_start>>4);	    // start form column 0
+		lcd12864_wrcmd(col_start&0xff);	    // (2byte command)
+		for(j=col_start;j<col_end;j++)
 		{
-			lcd12864_wrdata(0);
+			lcd12864_wrdata(data);
 		}
 	}
 }
@@ -213,17 +213,17 @@ lcd12864_t *bsp_lcd12864_init(void)
 
 	lcd12864_wrcmd(0x81);            // E-Vol setting
     lcd12864_wrcmd(pdev->ContrastLevel);   // (2byte command)
-	lcd12864_ClearRAM();
+	lcd12864_FillRAM(0, LCD_PAGE_MAX, 0, LCD_COL_MAX, 0);//清屏
 	
     pdev->flags |= DEF_FLAGS_12864_INIT;
     return pdev;
 }
-u8 testbuf[] = {0,1,2,3,4};
+u8 testbuf[] = {33,0,1,2,3,4,34};
 void lcd12864_test(void)
 {
 //	lcd12864_WriteScreen(Logo);  
 //	HAL_Delay(1000);
-	lcd12864_HZ16_16(0,0, testbuf, 5);
+	lcd12864_HZ16_16(0, 0, testbuf, 7);
 	lcd12864_string(2,0, "ml");
 }
 

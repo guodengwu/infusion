@@ -29,10 +29,10 @@
 #include "spi.h"
 //#include "misc.h"
 #include "bsp.h"
-//#include "tim.h"
+#include "msg.h"
 //#include "timer.h"
 //#include "protocol.h"
-//#include "sys_data.h"
+#include "sys_data.h"
 
 #endif
 

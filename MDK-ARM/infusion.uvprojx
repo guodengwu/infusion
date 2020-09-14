@@ -457,6 +457,11 @@
               <FileType>1</FileType>
               <FilePath>..\USER\display_ui.c</FilePath>
             </File>
+            <File>
+              <FileName>sys_data.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\sys_data.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -481,6 +486,16 @@
               <FileName>BLETask.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\APP\BLETask.c</FilePath>
+            </File>
+            <File>
+              <FileName>UITask.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\APP\UITask.c</FilePath>
+            </File>
+            <File>
+              <FileName>SysMonitorTask.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\APP\SysMonitorTask.c</FilePath>
             </File>
           </Files>
         </Group>
