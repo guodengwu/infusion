@@ -11,7 +11,7 @@
 #define	KEY_LONGPRESS					DEF_BIT07_MASK
 
 #define	KEY_NONE			0
-#define	KEY_OK			KEY_1
+#define	KEY_POWER			KEY_1
 #define	KEY_ADD			KEY_2
 #define	KEY_DEL			KEY_3
 #define	KEY_SEL			KEY_4

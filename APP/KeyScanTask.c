@@ -1,5 +1,5 @@
 #include "KeyScanTask.h"
-#include "display_ui.h"
+#include "UITask.h"
 
 #define	READ_KEY1()				HAL_GPIO_ReadPin(KEY1_GPIO_Port, KEY1_Pin)
 #define	READ_KEY2()				HAL_GPIO_ReadPin(KEY2_GPIO_Port, KEY2_Pin)
@@ -72,42 +72,9 @@ void KeyScanTaskProcess(void)
 {
 	KeyScan();
 	if(gKeyValue != KEY_NONE)	{
-		if(gKeyValue&KEY_LONGPRESS)	{
-			gKeyValue &= ~KEY_LONGPRESS;
-			if(gKeyValue == KEY_OK)	{
-				Sys.state |= SYSSTATE_SHUTDOWN_TB;
-				ShutDownUI(0);
-			}
-			gKeyValue = KEY_NONE;
-		}
-		else	{
-			switch(gKeyValue)	
-			{
-				case KEY_OK:
-					if(Sys.state & SYSSTATE_SHUTDOWN)	{
-						PWRCTRL_SYSOFF();
-					}
-					else	{
-						Sys.state &= ~SYSSTATE_SHUTDOWN_TB;
-						msg_pkt_keyscan.Src = UIBK_MSG;
-						StartUITask(&msg_pkt_keyscan);
-					}
-					break;
-				case KEY_ADD:
-					if(Sys.state & SYSSTATE_SHUTDOWN_TB)	{
-						ShutDownUI(1);
-						Sys.state |= SYSSTATE_SHUTDOWN;
-					}
-					break;
-				case KEY_DEL:
-					if(Sys.state & SYSSTATE_SHUTDOWN_TB)	{
-						ShutDownUI(0);					
-					}
-					break;
-				default:
-					break;
-			}
-			gKeyValue = KEY_NONE;
-		}
+		msg_pkt_keyscan.Src = MSG_KEYEVENT;
+		msg_pkt_keyscan.Cmd = gKeyValue;
+		StartUITask(&msg_pkt_keyscan);
+		gKeyValue = KEY_NONE;
 	}
 }

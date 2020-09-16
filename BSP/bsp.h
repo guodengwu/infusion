@@ -58,4 +58,5 @@ enum	{
 void	bsp_init(void);
 void bsp_poweron(void);
 void bsp_selftest(void);
+void SysShutdown(void);
 #endif

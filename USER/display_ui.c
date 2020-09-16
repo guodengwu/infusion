@@ -19,7 +19,7 @@ void ConfirmCapacityUI(u16 cap)
 		CodeData[i] = i;
 	}		
 	lcd12864_HZ16_16(0, RETRACT_1_SIZE, CodeData, i);
-	if(cap == 0xff)	{
+	if(cap == 0xffff)	{
 		ui.datlen = sprintf(ui.buff, "**** ml");
 	}
 	else	{
@@ -38,7 +38,7 @@ void SpeedUI(u16 speed, u16 cap)
 		CodeData[i] = 5+i;
 	}
 	col_addr = lcd12864_HZ16_16(0, RETRACT_ACSII, CodeData, 2);
-	if(speed == 0xff)	{
+	if(speed == 0xffff)	{
 		ui.datlen = sprintf(ui.buff, "** ml/h");		
 	}
 	else
@@ -47,7 +47,7 @@ void SpeedUI(u16 speed, u16 cap)
 	
 	CodeData[0] = 7;CodeData[1] = 8;
 	col_addr = lcd12864_HZ16_16(2, RETRACT_ACSII, CodeData, 2);
-	if(cap == 0xff)	{
+	if(cap == 0xffff)	{
 		ui.datlen = sprintf(ui.buff, "** ml");		
 	}
 	else

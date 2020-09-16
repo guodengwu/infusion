@@ -6,7 +6,8 @@ _sys_data_t SysData;
 void SysDataInit(void)
 {
 	Sys.state = SYSSTATE_NONE;
-	SysData.capacity = 0xff;
-	SysData.speed = 0xff;
+	SysData.capacity = 0xffff;
+	SysData.speed = 0xffff;
 }
+
 

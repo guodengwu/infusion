@@ -3,6 +3,7 @@
 #include "WeighTask.h"
 #include "BLETask.h"
 #include "UITask.h"
+#include "SysMonitorTask.h"
 
 SYS_TIM  SysTim;
 volatile u8	_1MS_Event;
@@ -23,6 +24,7 @@ void SysTaskInit(void)
 	WeighTaskInit();
 	BLETaskInit();
 	UITaskInit();
+	SysMonitorTaskInit();
 }
 //运行所有的任务
 void RunTask(void)
@@ -35,6 +37,7 @@ void RunTask(void)
 	if(_100MS_Event)	{
 		_100MS_Event = 0;
 		UITaskProcess();
+		SysMonitorTaskProcess();
 	}
 	if(_1S_Event)	{
 		_1S_Event = 0;

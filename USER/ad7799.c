@@ -1,6 +1,6 @@
 #include "ad7799.h"
 
-#define	AD7799_REF_VOLTAGE		(3000) //参考电压 mV 3304
+#define	AD7799_REF_VOLTAGE		(5000) //参考电压 mV 3304
 #define	DEFAULT_VDD						(float)(3.3)
 #define	AD7799_FACTOR	((FP32)AD7799_REF_VOLTAGE/(FP32)0x1000000)
 _ad7799_t ad7799;
@@ -26,7 +26,7 @@ void AD7799Init(void)
 	}
 	AD7799ChannelEnable();
 }
-
+u16 mode_r,cfg_r;
 static void AD7799ChannelEnable(void)
 {
 	ad7799_chcfg_t g_chcfg_tbl1=\
@@ -37,6 +37,8 @@ static void AD7799ChannelEnable(void)
 	ad7799.status = AD7799_MEASURE;
 	ad7799.channel = uCH_0;//起始通道
 	ad7799.channel_last = uCH_2;//最后一个通道
+	mode_r = bsp_ad7799_mode_get(ad7799.pdev);
+	cfg_r = bsp_ad7799_cfg_get(ad7799.pdev);
 }
 
 //返回电压值mV
@@ -140,6 +142,8 @@ u8 StartADDataCollect(void)
 						break;
 					case uCH_1:
 						CalcADCVolAverage(uCH_1, ad_code, AVER_MAX, DISCARD_NUM);
+					default:
+						break;
 				}
 				ad7799.status = AD7799_CHANGE_CH;
 			}			

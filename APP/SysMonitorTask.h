@@ -3,4 +3,7 @@
 
 #include "includes.h"
 
+void SysMonitorTaskInit(void);
+void SysMonitorTaskProcess(void);
 #endif
+

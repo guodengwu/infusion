@@ -462,6 +462,31 @@
               <FileType>1</FileType>
               <FilePath>..\USER\sys_data.c</FilePath>
             </File>
+            <File>
+              <FileName>ring_buffer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\ring_buffer.c</FilePath>
+            </File>
+            <File>
+              <FileName>eeprom.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\eeprom.c</FilePath>
+            </File>
+            <File>
+              <FileName>sys_info.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\sys_info.c</FilePath>
+            </File>
+            <File>
+              <FileName>save_data.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\save_data.c</FilePath>
+            </File>
+            <File>
+              <FileName>CRC_Check.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\CRC_Check.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

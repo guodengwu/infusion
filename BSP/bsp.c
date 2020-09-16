@@ -25,16 +25,21 @@ void bsp_poweron(void)
 void bsp_selftest(void)
 {
 	LED_BLUE_ON();
-	HAL_Delay(800);
+	HAL_Delay(600);
 	
 	LED_BLUE_OFF();	
 	LED_YELLOW_ON();
-	HAL_Delay(800);
+	HAL_Delay(600);
 	
 	LED_YELLOW_OFF();
 	LED_RED_ON();
 //	BEEP_ON();
-	HAL_Delay(800);
+	HAL_Delay(600);
 	LED_RED_OFF();
 	BEEP_OFF();
+}
+
+void SysShutdown(void)
+{
+	PWRCTRL_SYSOFF();
 }

@@ -7,8 +7,8 @@
 
 typedef enum _message_src{
 	MSG_NONE=0,
-    UI_MSG, 
-	UIBK_MSG,
+	MSG_KEYEVENT,
+    MSG_UI, 
 } message_src_t;
 
 typedef struct _message_pkt {

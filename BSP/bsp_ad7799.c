@@ -274,7 +274,7 @@ CPU_INT32U bsp_ad7799_cfg_get(ad7799_dev_t *pdev)
     ret = (CPU_INT32U)ad7799_reg_read(pdev, AD7799_REG_CONFIG, 2);
     return ret;
 }
-
+u16 mode_w,cfg_w;
 void bsp_ad7799_mode_set(ad7799_dev_t *pdev)
 {
     ad7799_reg_mode_t r;
@@ -284,6 +284,7 @@ void bsp_ad7799_mode_set(ad7799_dev_t *pdev)
 	r.bits.PSW = 1;
 	r.bits.MD = AD7799_MODE_SINGLE_CNV;//单次触发模式
     ad7799_reg_write(pdev, AD7799_REG_MODE, 2, r.uword);
+	mode_w = r.uword;
 }
 
 void bsp_ad7799_cfg_set(ad7799_dev_t *pdev, const ad7799_chcfg_t *pcfg)
@@ -298,6 +299,7 @@ void bsp_ad7799_cfg_set(ad7799_dev_t *pdev, const ad7799_chcfg_t *pcfg)
 	r.bits.REFBUF    = 1;
 	r.bits.CH = pcfg->channel;
     ad7799_reg_write(pdev, AD7799_REG_CONFIG, 2, r.uword);
+	cfg_w = r.uword;
 }
 
 ad7799_dev_t* bsp_ad7799_find(CPU_INT08U id)
