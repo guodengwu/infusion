@@ -29,7 +29,7 @@ static u8 ReadKeyVal(void)
 static void KeyScan(void)
 {
 	static u8 KeyVal,KeyVal_bk;
-	static u16 ShortPressCnt,LongPressCnt;
+	static u16 ShortPressCnt,LongPressCnt,PressSendCnt;
 	
 	KeyVal = (~ReadKeyVal())&0x0f;
 	if(KeyVal != KeyVal_bk)	{//有按键状态变化
@@ -38,8 +38,8 @@ static void KeyScan(void)
 					//BSP_PRINTF("KEY Release:%x",keyscan.keyval);
 			}
 			else	{//有按键按下
-				gKeyValue = KeyVal&~KeyVal_bk;//将上次未release的按键 过滤掉
-//					BSP_PRINTF("KEY Press:%x",keyscan.keyval);
+//				gKeyValue = KeyVal&~KeyVal_bk;//将上次未release的按键 过滤掉
+				gKeyValue = KeyVal;
 			}
 			KeyVal_bk = KeyVal;
 		}
@@ -52,7 +52,12 @@ static void KeyScan(void)
 			if(LongPressCnt >= KEYNIANLIAN_NUM)	{//按键黏连 连续按下30s
 			}		
 			else if(LongPressCnt >= KEYLONGPRESS_NUM)	{//长按 连续按下3s
-				gKeyValue = KeyVal| KEY_LONGPRESS;
+				if(PressSendCnt>=50)	{
+					PressSendCnt = 0;
+					gKeyValue = KeyVal| KEY_LONGPRESS;
+				}
+				else
+					PressSendCnt ++;
 			}
 			LongPressCnt++;
 		}

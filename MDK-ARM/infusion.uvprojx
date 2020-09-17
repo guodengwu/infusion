@@ -487,20 +487,25 @@
               <FileType>1</FileType>
               <FilePath>..\USER\CRC_Check.c</FilePath>
             </File>
+            <File>
+              <FileName>misc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\misc.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>APP</GroupName>
           <Files>
             <File>
-              <FileName>KeyScanTask.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\APP\KeyScanTask.c</FilePath>
-            </File>
-            <File>
               <FileName>TaskManage.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\APP\TaskManage.c</FilePath>
+            </File>
+            <File>
+              <FileName>KeyScanTask.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\APP\KeyScanTask.c</FilePath>
             </File>
             <File>
               <FileName>WeighTask.c</FileName>

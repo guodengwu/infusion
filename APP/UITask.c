@@ -26,6 +26,18 @@ static void RereshDisplay(s8 screen_id, u8 param)
 		case UIID_CAPACITY:
 			ConfirmCapacityUI(SysData.capacity);
 			break;
+		case UIID_CALI_ZERO://重量0点校准界面
+			WeighZeroCalibrateUI();
+			break;
+		case UIID_BATTARY://电量
+			BattaryUI();
+			break;
+		case UIID_BLE:
+			BLE_IDUI();
+			break;
+		case UIID_FWVER:
+			FWVerUI();
+			break;
 		case UIID_SPEED:
 			SpeedUI(SysData.speed, SysData.capacity);
 			break;
@@ -46,6 +58,7 @@ static void RereshDisplay(s8 screen_id, u8 param)
 	}	
 	if(backupflag)
 		ui.screen_idbk = screen_id;
+	ui.screen_id = screen_id;
 }
 //1s 执行一次
 void UITaskProcess(void)
@@ -63,7 +76,8 @@ void UITaskProcess(void)
 			if(keyvalue&KEY_LONGPRESS)	{
 				keyvalue &= ~KEY_LONGPRESS;
 			}
-			else	{
+//			else	
+			{
 				switch(keyvalue)	
 				{
 					case KEY_POWER:
@@ -94,6 +108,21 @@ void UITaskProcess(void)
 								RereshDisplay(ui.screen_idbk, NULL);
 							}
 						}
+						break;
+					case (KEY_SEL+KEY_ADD):	
+						ui.screen_id++;
+						if(ui.screen_id > UIID_FWVER)	{
+							ui.screen_id = UIID_CAPACITY;
+						}
+						RereshDisplay(ui.screen_id, NULL);						
+						break;
+					case (KEY_SEL+KEY_DEL):
+						ui.screen_id--;
+						if(ui.screen_id < UIID_CAPACITY)	{
+							ui.screen_id = UIID_FWVER;
+						}
+						RereshDisplay(ui.screen_id, NULL);	
+						break;
 					default:
 						break;
 				}

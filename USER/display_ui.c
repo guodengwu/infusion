@@ -79,12 +79,15 @@ void PaiQiUI(u16 speed)
 	lcd12864_FillRAM(0, LCD_PAGE_MAX, 0, LCD_COL_MAX, 0);//«Â∆¡
 	CodeData[0] = 0;
 	for(i=1;i<5;i++)	{
-		CodeData[i] = 13+i;
+		CodeData[i] = 12+i;
 	}
 	lcd12864_HZ16_16(0, RETRACT_1_SIZE, CodeData, i);
 	CodeData[0] = 5;CodeData[1] = 6;
 	col_addr = lcd12864_HZ16_16(2, RETRACT_ACSII, CodeData, 2);
-	ui.datlen = sprintf(ui.buff, "%d.%d ml/h", speed/10,speed%10);	
+	if(speed == 0xffff)	
+		ui.datlen = sprintf(ui.buff, "**** ml/h");	
+	else
+		ui.datlen = sprintf(ui.buff, "%d.%d ml/h", speed/10,speed%10);	
 	lcd12864_string(2, col_addr + RETRACT_ACSII, ui.buff);
 }
 
@@ -108,4 +111,45 @@ void ShutDownUI(u8 flag)
 		lcd12864_HZ16_16(2, RETRACT_4_SIZE-16, CodeData, 3);
 		lcd12864_HZ16_16(2, RETRACT_0_SIZE+16, &CodeData[3], 1);
 	}
+}
+
+void WeighZeroCalibrateUI(void)
+{
+	u8 i;
+	
+	lcd12864_FillRAM(0, LCD_PAGE_MAX, 0, LCD_COL_MAX, 0);//«Â∆¡
+	for(i=0;i<4;i++)	{
+		CodeData[i] = 39+i;
+	}
+	lcd12864_HZ16_16(0, RETRACT_1_SIZE+RETRACT_ACSII, CodeData, i);
+}
+
+void BattaryUI(void)
+{
+	lcd12864_FillRAM(0, LCD_PAGE_MAX, 0, LCD_COL_MAX, 0);
+	CodeData[0] = 27;CodeData[1] = 28;
+	lcd12864_HZ16_16(0, RETRACT_2_SIZE, CodeData, 2);
+}
+
+void BLE_IDUI(void)
+{
+	u8 col_addr;
+	
+	lcd12864_FillRAM(0, LCD_PAGE_MAX, 0, LCD_COL_MAX, 0);
+	CodeData[0] = 43;CodeData[1] = 44;
+	col_addr = lcd12864_HZ16_16(0, RETRACT_2_SIZE, CodeData, 2);
+	lcd12864_string(0, col_addr, "ID");
+}
+
+#include "sys_info.h"
+void FWVerUI(void)
+{
+	u8 i;
+	
+	lcd12864_FillRAM(0, LCD_PAGE_MAX, 0, LCD_COL_MAX, 0);//«Â∆¡
+	for(i=0;i<4;i++)	{
+		CodeData[i] = 45+i;
+	}
+	lcd12864_HZ16_16(0, RETRACT_1_SIZE+RETRACT_ACSII, CodeData, i);
+	lcd12864_string(2, RETRACT_2_SIZE, CONFIG_SYSINFO_FW_Version);
 }

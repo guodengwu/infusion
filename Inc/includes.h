@@ -27,7 +27,7 @@
 #include "usart.h"
 #include "gpio.h"
 #include "spi.h"
-//#include "misc.h"
+#include "misc.h"
 #include "bsp.h"
 #include "msg.h"
 //#include "timer.h"

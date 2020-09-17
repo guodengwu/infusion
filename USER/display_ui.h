@@ -13,6 +13,10 @@ typedef struct _UI	{
 
 enum _UI_ID	{
 	UIID_CAPACITY,
+	UIID_CALI_ZERO,//重量0点校准界面
+	UIID_BATTARY,//电量
+	UIID_BLE,
+	UIID_FWVER,
 	UIID_SPEED,
 	UIID_COMPLETE,
 	UIID_SHUTDOWN,
@@ -29,4 +33,8 @@ void InfusionCompleteUI(u16 speed);
 void SpeedUI(u16 speed, u16 cap);
 void ShutDownUI(u8 flag);
 void PaiQiUI(u16 speed);
+void FWVerUI(void);
+void BLE_IDUI(void);
+void BattaryUI(void);
+void WeighZeroCalibrateUI(void);
 #endif
