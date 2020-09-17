@@ -52,7 +52,7 @@ static void KeyScan(void)
 			if(LongPressCnt >= KEYNIANLIAN_NUM)	{//按键黏连 连续按下30s
 			}		
 			else if(LongPressCnt >= KEYLONGPRESS_NUM)	{//长按 连续按下3s
-				if(PressSendCnt>=50)	{
+				if(PressSendCnt>=60)	{//600ms通报一次长按事件
 					PressSendCnt = 0;
 					gKeyValue = KeyVal| KEY_LONGPRESS;
 				}

@@ -28,6 +28,7 @@
 /* USER CODE BEGIN Includes */
 #include "bsp.h"
 #include "TaskManage.h"
+#include "sys_data.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -95,10 +96,10 @@ PWRCTRL_SYSON();
   /* USER CODE BEGIN 2 */
 bsp_poweron();
 bsp_selftest();
-bsp_init();
 SysDataInit();
+ReadUserDataFromEEPROM();//从eeprom读取系统信息，系统设置参数，称重参数等
+bsp_init();
 SysTaskInit();
-//lcd12864_test();
 ble_getmac();
 ble_getfwver();
 ble_setadvinter(6);

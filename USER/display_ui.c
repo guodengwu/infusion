@@ -23,7 +23,7 @@ void ConfirmCapacityUI(u16 cap)
 		ui.datlen = sprintf(ui.buff, "**** ml");
 	}
 	else	{
-		ui.datlen = sprintf(ui.buff, "%d  ml", cap);		
+		ui.datlen = sprintf(ui.buff, "%d mv", cap);		
 	}
 	lcd12864_string(2, RETRACT_2_SIZE, ui.buff);
 }
@@ -91,7 +91,7 @@ void PaiQiUI(u16 speed)
 	lcd12864_string(2, col_addr + RETRACT_ACSII, ui.buff);
 }
 
-void ShutDownUI(u8 flag)
+void ShutDownUI(void)
 {
 	u8 i;
 	
@@ -100,17 +100,7 @@ void ShutDownUI(u8 flag)
 		CodeData[i] = 35+i;
 	}
 	lcd12864_HZ16_16(0, RETRACT_2_SIZE, CodeData, i);
-	lcd12864_FillRAM(2, LCD_PAGE_MAX, 0, LCD_COL_MAX, 0);
-	if(!flag)	{
-		CodeData[0] = 33;CodeData[1] = 36;CodeData[2] = 34;CodeData[3] = 35;
-		lcd12864_HZ16_16(2, RETRACT_0_SIZE, CodeData, 3);
-		lcd12864_HZ16_16(2, RETRACT_4_SIZE, &CodeData[3], 1);
-	}
-	else	{
-		CodeData[0] = 33;CodeData[1] = 35;CodeData[2] = 34;CodeData[3] = 36;		
-		lcd12864_HZ16_16(2, RETRACT_4_SIZE-16, CodeData, 3);
-		lcd12864_HZ16_16(2, RETRACT_0_SIZE+16, &CodeData[3], 1);
-	}
+	lcd12864_string(2, RETRACT_ACSII*7, "...");
 }
 
 void WeighZeroCalibrateUI(void)
@@ -122,6 +112,18 @@ void WeighZeroCalibrateUI(void)
 		CodeData[i] = 39+i;
 	}
 	lcd12864_HZ16_16(0, RETRACT_1_SIZE+RETRACT_ACSII, CodeData, i);
+}
+
+void LCDContrastLevelUI(void)
+{
+	u8 col_addr;
+	
+	lcd12864_FillRAM(0, LCD_PAGE_MAX, 0, LCD_COL_MAX, 0);
+	col_addr = lcd12864_string(0, RETRACT_1_SIZE+RETRACT_ACSII, "LCD");
+	CodeData[0] = 49;CodeData[1] = 50;CodeData[2] = 51;
+	lcd12864_HZ16_16(0, col_addr, CodeData, 3);
+	ui.datlen = sprintf(ui.buff, "%d", lcd12864_GetContrast());
+	lcd12864_string(2, RETRACT_2_SIZE+RETRACT_0_SIZE, ui.buff);
 }
 
 void BattaryUI(void)

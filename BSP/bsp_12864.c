@@ -72,22 +72,36 @@ static void lcd12864_wrdata(u8 data)
 //-----------------------------------
 void lcd12864_LCDDarker(void)
 {
-	if (lcd12864.ContrastLevel<0x3F)
+	if (SysParm.LcdContrastLevel<0x3F)
 	{
-		lcd12864.ContrastLevel++;
+		SysParm.LcdContrastLevel++;
 	}
     lcd12864_wrcmd(0x81);     		// E-Vol setting
-	lcd12864_wrcmd(lcd12864.ContrastLevel);   // (2byte command)
+	lcd12864_wrcmd(SysParm.LcdContrastLevel);   // (2byte command)
 }
 
 void lcd12864_LCDLighter(void)
 {
-	if (lcd12864.ContrastLevel>0x00)
+	if (SysParm.LcdContrastLevel>0x00)
 	{
-		lcd12864.ContrastLevel--;
+		SysParm.LcdContrastLevel--;
 	}
     lcd12864_wrcmd(0x81);            // E-Vol setting
-	lcd12864_wrcmd(lcd12864.ContrastLevel);   // (2byte command)
+	lcd12864_wrcmd(SysParm.LcdContrastLevel);   // (2byte command)
+}
+
+u8 lcd12864_GetContrast(void)
+{
+	return SysParm.LcdContrastLevel;
+}
+
+u8 lcd12864_SetContrast(u8 contrast)
+{
+	if(SysParm.LcdContrastLevel != contrast)	{
+		SysParm.LcdContrastLevel = contrast;
+		lcd12864_wrcmd(0x81);            // E-Vol setting
+		lcd12864_wrcmd(SysParm.LcdContrastLevel);   // (2byte command)
+	}
 }
 //-----------------------------------
 // Write a Screen
@@ -129,7 +143,7 @@ void lcd12864_FillRAM(u8 page_start, u8 page_end, u8 col_start, u8 col_end, u8 d
 
 //------ASCII字符写入函数---------------
  // 坐标(x,y)，x为水平方向像素列；y为垂直方向字符行（8点像素/行）
-void lcd12864_string(u8 page, u8 col, char *pstr)
+u8 lcd12864_string(u8 page, u8 col, char *pstr)
 {
 	u8 j,page_addr, col_addr;
 	char addr;
@@ -157,6 +171,7 @@ void lcd12864_string(u8 page, u8 col, char *pstr)
 		}
 		col_addr += 8;
 	}
+	return col_addr;
 }
 
 //------汉字字符写入函数----------------
@@ -197,7 +212,7 @@ lcd12864_t *bsp_lcd12864_init(void)
 //	pdev->p_spi = &hspi2;
     bsp_lcd12864_reset();
 	
-	pdev->ContrastLevel = 0x18;// default Contrast Level
+//	pdev->ContrastLevel = 0x18;// default Contrast Level
 	lcd12864_wrcmd(0xaf);            // display on
 	lcd12864_wrcmd(0x40);            // display start line=0
     lcd12864_wrcmd(0xa0);            // ADC=0
@@ -212,7 +227,7 @@ lcd12864_t *bsp_lcd12864_init(void)
 	lcd12864_wrcmd(0x00);// Booster Ratio Set= 2x,3x,4x (2byte command)
 
 	lcd12864_wrcmd(0x81);            // E-Vol setting
-    lcd12864_wrcmd(pdev->ContrastLevel);   // (2byte command)
+    lcd12864_wrcmd(SysParm.LcdContrastLevel);   // (2byte command)
 	lcd12864_FillRAM(0, LCD_PAGE_MAX, 0, LCD_COL_MAX, 0);//清屏
 	
     pdev->flags |= DEF_FLAGS_12864_INIT;

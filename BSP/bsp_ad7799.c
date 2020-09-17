@@ -280,9 +280,9 @@ void bsp_ad7799_mode_set(ad7799_dev_t *pdev)
     ad7799_reg_mode_t r;
 
     r.uword = 0;
-	r.bits.FS = 1;
+	r.bits.FS = 2;
 	r.bits.PSW = 1;
-	r.bits.MD = AD7799_MODE_SINGLE_CNV;//单次触发模式
+	r.bits.MD = /*AD7799_MODE_SINGLE_CNV;//*/AD7799_MODE_CONTINUOUS_CNV;//单次触发模式
     ad7799_reg_write(pdev, AD7799_REG_MODE, 2, r.uword);
 	mode_w = r.uword;
 }

@@ -40,5 +40,6 @@ typedef struct _sys_infor {
     ident_infor_t *pident;
 } sys_infor_t;
 
+extern const sys_infor_t g_sys_infor;
 #endif
 
