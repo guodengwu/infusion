@@ -492,6 +492,11 @@
               <FileType>1</FileType>
               <FilePath>..\USER\misc.c</FilePath>
             </File>
+            <File>
+              <FileName>lcd_code.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\lcd_code.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

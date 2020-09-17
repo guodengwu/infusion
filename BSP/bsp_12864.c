@@ -1,5 +1,4 @@
 #include "bsp_12864.h"
-#include "lcd_code.h"
 
 #define	LCD12864_A0_LOW()				HAL_GPIO_WritePin(LCD_A0_GPIO_Port, LCD_A0_Pin, GPIO_PIN_RESET)
 #define	LCD12864_A0_HIGH()				HAL_GPIO_WritePin(LCD_A0_GPIO_Port, LCD_A0_Pin, GPIO_PIN_SET)
@@ -104,23 +103,29 @@ u8 lcd12864_SetContrast(u8 contrast)
 	}
 }
 //-----------------------------------
-// Write a Screen
+// 显示任意一副图片
 //-----------------------------------
-void lcd12864_WriteScreen(u8 *DisplayData)	// DisplayData should be 132x32/8 byte
+void lcd12864_PaintPic(u8 page_start, u8 col_start, u8 page_num, u8 col_num, const u8 *pdata)
 {
 	u8 TempData;
-	u16 i, j;
+	u16 i,j,m,n;
+	u8 page_end;
 	
-	for(i=0;i<4;i++)
+	page_end = page_start + page_num;
+//	col_end = col_start + col_num;
+	m = 0;
+	for(i=page_start;i<page_end;i++)
 	{
 		lcd12864_wrcmd(0xb0 | i);	// select page
-		lcd12864_wrcmd(0x10);	    // start form column 0
-		lcd12864_wrcmd(0x00);	    // (2byte command)
-		for(j=0;j<132;j++)
+		lcd12864_wrcmd(0x10|col_start>>4);		    // start form column 0
+		lcd12864_wrcmd(col_start&0x0f);		    // (2byte command)
+		n = m*col_num;
+		for(j=0;j<col_num;j++)
 		{
-			TempData = (*(DisplayData+(i*132)+j));
+			TempData = (*(pdata+n+j));
 			lcd12864_wrdata(TempData);
 		}
+		m++;
 	}
 }
 
@@ -133,7 +138,7 @@ void lcd12864_FillRAM(u8 page_start, u8 page_end, u8 col_start, u8 col_end, u8 d
 	{
 		lcd12864_wrcmd(0xb0 | i);	// select page
 		lcd12864_wrcmd(0x10|col_start>>4);	    // start form column 0
-		lcd12864_wrcmd(col_start&0xff);	    // (2byte command)
+		lcd12864_wrcmd(col_start&0x0f);	    // (2byte command)
 		for(j=col_start;j<col_end;j++)
 		{
 			lcd12864_wrdata(data);
@@ -236,10 +241,15 @@ lcd12864_t *bsp_lcd12864_init(void)
 u8 testbuf[] = {33,0,1,2,3,4,34};
 void lcd12864_test(void)
 {
-//	lcd12864_WriteScreen(Logo);  
+//lcd12864_PaintPic(2, 32, 2, 48, &bat_icon[0][0]);
 //	HAL_Delay(1000);
-	lcd12864_HZ16_16(0, 0, testbuf, 7);
-	lcd12864_string(2,0, "ml");
+//	lcd12864_PaintPic(2, 32, 2, 48, &bat_icon[1][0]);
+//	HAL_Delay(1000);
+//	lcd12864_PaintPic(2, 32, 2, 48, &bat_icon[2][0]);
+//	HAL_Delay(1000);
+//	lcd12864_PaintPic(2, 32, 2, 48, &bat_icon[3][0]);
+//	lcd12864_HZ16_16(0, 0, testbuf, 7);
+//	lcd12864_string(2,0, "ml");
 }
 
 

@@ -9,6 +9,7 @@ static void RereshDisplay(s8 screen_id, u8 param);
 
 void UITaskInit(void)
 {
+	UIInit();
 	RingBuffer_Init(&UI_Ringbuf,(message_pkt_t *)msg_pkt_ui, sizeof(message_pkt_t), 5);
 	RereshDisplay(UIID_CAPACITY, NULL);
 }

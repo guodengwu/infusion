@@ -100,6 +100,7 @@ SysDataInit();
 ReadUserDataFromEEPROM();//从eeprom读取系统信息，系统设置参数，称重参数等
 bsp_init();
 SysTaskInit();
+//lcd12864_test();
 ble_getmac();
 ble_getfwver();
 ble_setadvinter(6);

@@ -39,4 +39,5 @@ void BLE_IDUI(void);
 void BattaryUI(void);
 void LCDContrastLevelUI(void);
 void WeighZeroCalibrateUI(void);
+void UIInit(void);
 #endif

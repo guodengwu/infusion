@@ -10,6 +10,11 @@
 _UI_t	ui;
 u8 CodeData[8];
 
+void UIInit(void)
+{
+	ui.screen_id = UIID_CAPACITY;
+}
+
 void ConfirmCapacityUI(u16 cap)
 {
 	u8 i;
@@ -97,7 +102,7 @@ void ShutDownUI(void)
 	
 	lcd12864_FillRAM(0, LCD_PAGE_MAX, 0, LCD_COL_MAX, 0);//«Â∆¡
 	for(i=0;i<4;i++)	{
-		CodeData[i] = 35+i;
+		CodeData[i] = 31+i;
 	}
 	lcd12864_HZ16_16(0, RETRACT_2_SIZE, CodeData, i);
 	lcd12864_string(2, RETRACT_ACSII*7, "...");
@@ -109,7 +114,7 @@ void WeighZeroCalibrateUI(void)
 	
 	lcd12864_FillRAM(0, LCD_PAGE_MAX, 0, LCD_COL_MAX, 0);//«Â∆¡
 	for(i=0;i<4;i++)	{
-		CodeData[i] = 39+i;
+		CodeData[i] = 35+i;
 	}
 	lcd12864_HZ16_16(0, RETRACT_1_SIZE+RETRACT_ACSII, CodeData, i);
 }
@@ -120,7 +125,7 @@ void LCDContrastLevelUI(void)
 	
 	lcd12864_FillRAM(0, LCD_PAGE_MAX, 0, LCD_COL_MAX, 0);
 	col_addr = lcd12864_string(0, RETRACT_1_SIZE+RETRACT_ACSII, "LCD");
-	CodeData[0] = 49;CodeData[1] = 50;CodeData[2] = 51;
+	CodeData[0] = 45;CodeData[1] = 46;CodeData[2] = 47;
 	lcd12864_HZ16_16(0, col_addr, CodeData, 3);
 	ui.datlen = sprintf(ui.buff, "%d", lcd12864_GetContrast());
 	lcd12864_string(2, RETRACT_2_SIZE+RETRACT_0_SIZE, ui.buff);
@@ -129,8 +134,9 @@ void LCDContrastLevelUI(void)
 void BattaryUI(void)
 {
 	lcd12864_FillRAM(0, LCD_PAGE_MAX, 0, LCD_COL_MAX, 0);
-	CodeData[0] = 27;CodeData[1] = 28;
-	lcd12864_HZ16_16(0, RETRACT_2_SIZE, CodeData, 2);
+	CodeData[0] = 27;CodeData[1] = 28;CodeData[2] = 27;CodeData[3] = 4;
+	lcd12864_HZ16_16(0, RETRACT_2_SIZE, CodeData, 4);
+	lcd12864_PaintPic(2, RETRACT_2_SIZE+RETRACT_ACSII, 2, 48, &bat_icon[0][0]);
 }
 
 void BLE_IDUI(void)
@@ -138,7 +144,7 @@ void BLE_IDUI(void)
 	u8 col_addr;
 	
 	lcd12864_FillRAM(0, LCD_PAGE_MAX, 0, LCD_COL_MAX, 0);
-	CodeData[0] = 43;CodeData[1] = 44;
+	CodeData[0] = 39;CodeData[1] = 40;
 	col_addr = lcd12864_HZ16_16(0, RETRACT_2_SIZE, CodeData, 2);
 	lcd12864_string(0, col_addr, "ID");
 }
@@ -150,7 +156,7 @@ void FWVerUI(void)
 	
 	lcd12864_FillRAM(0, LCD_PAGE_MAX, 0, LCD_COL_MAX, 0);//«Â∆¡
 	for(i=0;i<4;i++)	{
-		CodeData[i] = 45+i;
+		CodeData[i] = 41+i;
 	}
 	lcd12864_HZ16_16(0, RETRACT_1_SIZE+RETRACT_ACSII, CodeData, i);
 	lcd12864_string(2, RETRACT_2_SIZE, CONFIG_SYSINFO_FW_Version);
