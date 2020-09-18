@@ -125,7 +125,7 @@ void MX_GPIO_Init(void)
 
   /*Configure GPIO pin : PtPin */
   GPIO_InitStruct.Pin = Bub_Det_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(Bub_Det_GPIO_Port, &GPIO_InitStruct);
 
@@ -169,6 +169,7 @@ void MX_GPIO_Init(void)
 #include "sys_bits.h"
 #include "sys_types.h"
 #include "sys_defs.h"
+#include "sys_data.h"
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
 	u8 data;
@@ -178,11 +179,11 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 		data = HAL_GPIO_ReadPin(BLE_DON_GPIO_Port, BLE_DON_Pin);
 		ble_ready2rec(data);
     }
-//	else if(GPIO_Pin == SENSOR_BUBBLE1_Pin)	{
-////		sys_error.Y2.bits.b3 = SENSOR_ERROR;
-//		bubble[BUBBLE_ID1].flag = BUBBLE_TBC;
-//		bubble[BUBBLE_ID1].DetCnt = 0;
-//	}
+	else if(GPIO_Pin == Bub_Det_Pin)	{
+		if(!HAL_GPIO_ReadPin(Bub_Det_GPIO_Port, Bub_Det_Pin))	{
+			SysError.Y1.bits.b7 = DEF_True;
+		}
+	}
 //	else if(GPIO_Pin == SENSOR_BUBBLE2_Pin)	{
 ////		sys_error.Y2.bits.b4 = SENSOR_ERROR;
 //		bubble[BUBBLE_ID2].flag = BUBBLE_TBC;

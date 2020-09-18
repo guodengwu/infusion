@@ -136,7 +136,14 @@ void BattaryUI(void)
 	lcd12864_FillRAM(0, LCD_PAGE_MAX, 0, LCD_COL_MAX, 0);
 	CodeData[0] = 27;CodeData[1] = 28;CodeData[2] = 27;CodeData[3] = 4;
 	lcd12864_HZ16_16(0, RETRACT_2_SIZE, CodeData, 4);
-	lcd12864_PaintPic(2, RETRACT_2_SIZE+RETRACT_ACSII, 2, 48, &bat_icon[0][0]);
+	if(SysData.bat == BAT_3)
+		lcd12864_PaintPic(2, RETRACT_2_SIZE+RETRACT_ACSII, 2, 48, &bat_icon[0][0]);
+	if(SysData.bat == BAT_2)
+		lcd12864_PaintPic(2, RETRACT_2_SIZE+RETRACT_ACSII, 2, 48, &bat_icon[1][0]);
+	if(SysData.bat == BAT_1)
+		lcd12864_PaintPic(2, RETRACT_2_SIZE+RETRACT_ACSII, 2, 48, &bat_icon[2][0]);
+	if(SysData.bat == BAT_0)
+		lcd12864_PaintPic(2, RETRACT_2_SIZE+RETRACT_ACSII, 2, 48, &bat_icon[3][0]);
 }
 
 void BLE_IDUI(void)
@@ -161,3 +168,22 @@ void FWVerUI(void)
 	lcd12864_HZ16_16(0, RETRACT_1_SIZE+RETRACT_ACSII, CodeData, i);
 	lcd12864_string(2, RETRACT_2_SIZE, CONFIG_SYSINFO_FW_Version);
 }
+
+void BATLowPower(void)
+{
+	lcd12864_FillRAM(0, LCD_PAGE_MAX, 0, LCD_COL_MAX, 0);
+	CodeData[0] = 26;CodeData[1] = 27;CodeData[2] = 4;
+	lcd12864_HZ16_16(0, RETRACT_2_SIZE+RETRACT_ACSII, CodeData, 2);
+	
+}
+
+void BATDeadPower(void)
+{
+	lcd12864_FillRAM(0, LCD_PAGE_MAX, 0, LCD_COL_MAX, 0);
+	CodeData[0] = 27;CodeData[1] = 28;CodeData[2] = 29;CodeData[3] = 30;
+	lcd12864_HZ16_16(0, RETRACT_1_SIZE+RETRACT_ACSII, CodeData, 4);
+	CodeData[0] = 31;CodeData[1] = 32;CodeData[2] = 33;CodeData[3] = 34;
+	lcd12864_HZ16_16(0, RETRACT_1_SIZE+RETRACT_ACSII, CodeData, 4);	
+}
+
+

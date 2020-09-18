@@ -25,7 +25,7 @@ void BLETaskProcess(void)
 //打包并发送ble数据
 void BLEPackageData(void)
 {
-	u8 idx;
+	u8 idx,crc8;
 	
 	idx = 0;
 	ble.puart_t->tx_buf[idx++] = PROTOCOL_TX_SD0;
@@ -39,6 +39,8 @@ void BLEPackageData(void)
 	ble.puart_t->tx_buf[idx++] = SysData.weigh>>8;
 	ble.puart_t->tx_buf[idx++] = SysData.bat;//电池电量
 	ble.puart_t->tx_buf[idx++] = SysError.Y1.ubyte;//故障
+	crc8 = CRC8_Sum(ble.puart_t->tx_buf, idx);//crc
+	ble.puart_t->tx_buf[idx++] = crc8;
 	ble.puart_t->tx_len = idx;
 	ble_senddata(&ble);
 }

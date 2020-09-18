@@ -8,6 +8,13 @@
 //#define SYSSTATE_SHUTDOWN_YES					DEF_BIT01_MASK
 #define SYSSTATE_SHUTDOWN					DEF_BIT02_MASK
 
+enum _battary {
+	BAT_3,
+	BAT_2,
+	BAT_1,	
+	BAT_0,
+};
+
 typedef struct _sys_status	{
 	volatile u32 state;
 }_sys_t;
@@ -48,6 +55,7 @@ extern _sys_data_t SysData;
 extern _sys_setparam_t SysParm;
 extern _weighparam_t WeighParam;
 extern _syserror_t SysError;
+extern _syserror_t SysErrorBk;
 
 void SysDataInit(void);
 void ReadUserDataFromEEPROM(void);

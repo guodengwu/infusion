@@ -22,4 +22,5 @@ typedef struct  _ad7799
 extern _ad7799_t ad7799;
 void AD7799Init(void);
 u8 StartADDataCollect(void);
+u16 GetBattaryVol(void);
 #endif

@@ -21,8 +21,8 @@ void AD7799Init(void)
 	
 	ad7799.pdev = bsp_ad7799_init(AD7799_ID1);
 	ad7799_id = bsp_ad7799_id_get(ad7799.pdev);
-	if((ad7799_id&0x0f) == AD7799_ID)	{\
-	
+	if((ad7799_id&0x0f) != AD7799_ID)	{
+		SysError.Y1.bits.b3 = DEF_True;
 	}
 	AD7799ChannelEnable();
 }
@@ -152,19 +152,24 @@ u8 StartADDataCollect(void)
 			ad7799.status = AD7799_CHANGE_CH;
 	}
 	else if(ad7799.status == AD7799_CHANGE_CH)	{
-//		ad7799_chcfg_t g_chcfg_tbl1 = {uCH_0, DEF_Enable, UNIPOLAR, 0, 1, AD7799_GAIN_1_MUL};
-//		if(ad7799.channel==uCH_0)	{
-//			g_chcfg_tbl1.channel = uCH_1;
-//			g_chcfg_tbl1.U_B = UNIPOLAR;
-//		}
-//		else	if(ad7799.channel==uCH_1)	{
-//			g_chcfg_tbl1.channel = uCH_0;
-//			g_chcfg_tbl1.U_B = UNIPOLAR;
-//		}
-//		bsp_ad7799_cfg_set(ad7799.pdev, &g_chcfg_tbl1);
-//		bsp_ad7799_mode_set(ad7799.pdev);
+		ad7799_chcfg_t g_chcfg_tbl1 = {uCH_0, DEF_Enable, UNIPOLAR, 0, 1, AD7799_GAIN_1_MUL};
+		if(ad7799.channel==uCH_0)	{
+			g_chcfg_tbl1.channel = uCH_1;
+			g_chcfg_tbl1.U_B = UNIPOLAR;
+		}
+		else	if(ad7799.channel==uCH_1)	{
+			g_chcfg_tbl1.channel = uCH_0;
+			g_chcfg_tbl1.U_B = UNIPOLAR;
+		}
+		bsp_ad7799_cfg_set(ad7799.pdev, &g_chcfg_tbl1);
+		bsp_ad7799_mode_set(ad7799.pdev);
 		ad7799.status = AD7799_MEASURE;
 	}
 	return 0;
+}
+
+u16 GetBattaryVol(void)
+{
+	return ad7799.vol[1];
 }
 

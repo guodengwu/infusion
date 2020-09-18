@@ -148,7 +148,7 @@ u8 CRC8(u8 *ptr, u16 len)
 
 /// 累加和校验
 
-u8 SumCheck(u8 *data, u8 num )
+u8 CRC8_Sum(u8 *data, u8 num )
 {
    int buf = 0; 
     //所有字节累加

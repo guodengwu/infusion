@@ -40,4 +40,6 @@ void BattaryUI(void);
 void LCDContrastLevelUI(void);
 void WeighZeroCalibrateUI(void);
 void UIInit(void);
+void BATLowPower(void);
+void BATDeadPower(void);
 #endif

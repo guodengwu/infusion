@@ -282,7 +282,7 @@ void bsp_ad7799_mode_set(ad7799_dev_t *pdev)
     r.uword = 0;
 	r.bits.FS = 2;
 	r.bits.PSW = 1;
-	r.bits.MD = /*AD7799_MODE_SINGLE_CNV;//*/AD7799_MODE_CONTINUOUS_CNV;//单次触发模式
+	r.bits.MD = AD7799_MODE_SINGLE_CNV;//AD7799_MODE_CONTINUOUS_CNV;//单次触发模式
     ad7799_reg_write(pdev, AD7799_REG_MODE, 2, r.uword);
 	mode_w = r.uword;
 }
@@ -296,7 +296,7 @@ void bsp_ad7799_cfg_set(ad7799_dev_t *pdev, const ad7799_chcfg_t *pcfg)
 	r.bits.U_B    = pcfg->U_B;
 	r.bits.GAIN   = pcfg->intgain;
 	r.bits.REF_DET = 1;//参考电压检测使能
-	r.bits.REFBUF    = 1;
+	r.bits.REFBUF    = 0;
 	r.bits.CH = pcfg->channel;
     ad7799_reg_write(pdev, AD7799_REG_CONFIG, 2, r.uword);
 	cfg_w = r.uword;

@@ -55,6 +55,11 @@ static void RereshDisplay(s8 screen_id, u8 param)
 			break;
 		case UIID_FORGET:
 			break;
+		case UIID_LOWPOWER:
+			BATLowPower();
+			break;
+		case UIID_POWERDEAD:
+			BATDeadPower();
 		default:
 			return;
 	}	
@@ -120,6 +125,9 @@ void UITaskProcess(void)
 							}
 							break;
 						case KEY_SEL:
+							if(ui.screen_id == UIID_PAIQI)	{
+								SysError.Y1.bits.b7 = DEF_False;//Ïû³ýÆøÅÝ±¨¾¯
+							}
 							break;
 						case (KEY_SEL+KEY_ADD):	
 							ui.screen_id++;
@@ -141,7 +149,7 @@ void UITaskProcess(void)
 				}
 				break;
 			case MSG_UI:
-	//			RereshDisplay(msg_pkt_ui.Cmd);
+				RereshDisplay(msg.Cmd, NULL);
 				break;
 			default:
 				break;		

@@ -7,6 +7,7 @@ _sys_data_t SysData;
 _sys_setparam_t SysParm;
 _weighparam_t WeighParam;
 _syserror_t SysError;
+_syserror_t SysErrorBk;
 
 void SysDataInit(void)
 {
