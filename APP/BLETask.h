@@ -7,7 +7,8 @@
 ********************************************************************************
 */
 #include "includes.h"
-
+#include "bsp_ble.h"
+#include "protocol.h"
 
 void BLETaskProcess(void);
 void BLETaskInit(void);

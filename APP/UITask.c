@@ -21,9 +21,6 @@ void StartUITask(message_pkt_t *pmsg)
 #include "ad7799.h"
 static void RereshDisplay(s8 screen_id, u8 param)
 {
-//	u8 backupflag;
-	
-//	backupflag = DEF_True;
 	switch(screen_id)	{
 		case UIID_CAPACITY:
 //			ConfirmCapacityUI(SysData.capacity);
@@ -61,8 +58,6 @@ static void RereshDisplay(s8 screen_id, u8 param)
 		default:
 			return;
 	}	
-//	if(backupflag)
-//		ui.screen_idbk = screen_id;
 	ui.screen_id = screen_id;
 }
 //100ms Ö´ÐÐÒ»´Î

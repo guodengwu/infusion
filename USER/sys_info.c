@@ -28,7 +28,7 @@ void show_sys_info(void)
 
     SYS_PRINTF("Producte name:        \t\t%s",    pinfo->pname);
     SYS_PRINTF("Producte type:        \t\t%s",    pident->type);
-    SYS_PRINTF("Producte SN:          \t\t%s",    pident->product_sn);
+    SYS_PRINTF("Producte SN:          \t\t%u",    pident->product_sn.uword);
     SYS_PRINTF("Board SN:        \t\t%s",  pident->board_sn);
     SYS_PRINTF("Firmware Type:      \t\t%s",    pinfo->pfwtype);
     SYS_PRINTF("Firmware Version:   \t\t%s",    pinfo->pfwver);

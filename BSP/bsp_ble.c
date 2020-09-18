@@ -59,11 +59,9 @@ void ble_setadvinter(u8 dat)
 	HAL_UART_Receive(ble.port, ble.puart_t->rx_buf, 8, BLE_TIMEOUT_VALUE);
 }
 
-void ble_senddata(u8 *pdata, u8 len)
+void ble_senddata(_ble_t *pBle_t)
 {
-	memcpy(ble.puart_t->tx_buf, pdata, len);
-	ble.puart_t->tx_len = len;
-	HAL_UART_Transmit(ble.port, ble.puart_t->tx_buf, ble.puart_t->tx_len,BLE_TIMEOUT_VALUE);
+	HAL_UART_Transmit(pBle_t->port, pBle_t->puart_t->tx_buf, pBle_t->puart_t->tx_len, BLE_TIMEOUT_VALUE);
 }
 
 void ble_ready2rec(u8 data)

@@ -24,11 +24,11 @@ void SaveUserDataToEEPROM(void)
 		eeprom_data.type &= ~SaveDataType_SYSINFO;
 		EEPROM_WriteBytes(EEPROMAddr_SYSINFOR, eeprom_buff, eeprom_data.len);
 	}
-	else if(eeprom_data.type & SaveDataType_SYSPARAM)	{//保存系统参数
+	if(eeprom_data.type & SaveDataType_SYSPARAM)	{//保存系统参数
 		eeprom_data.type &= ~SaveDataType_SYSPARAM;
 		EEPROM_WriteBytes(EEPROMAddr_SYSPARAM, eeprom_buff, eeprom_data.len);
 	}
-	else if(eeprom_data.type & SaveDataType_WEIGHPARAM)	{//保存称重参数
+	if(eeprom_data.type & SaveDataType_WEIGHPARAM)	{//保存称重参数
 		eeprom_data.type &= ~SaveDataType_SYSPARAM;
 		EEPROM_WriteBytes(EEPROMAddr_WEIGHPARAM, eeprom_buff, eeprom_data.len);
 	}

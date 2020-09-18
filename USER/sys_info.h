@@ -12,7 +12,7 @@
 */
 #define CONFIG_SYSINFO_Name                            "Weigh"
 #define CONFIG_SYSINFO_Type                            "xxxxxx"
-#define CONFIG_SYSINFO_SN                              "2001000001"
+#define CONFIG_SYSINFO_SN                              (u32)(2001000001)
 //#define CONFIG_SYSINFO_BoardSN                  		"********"
 #define CONFIG_SYSINFO_HW_Version   				   	"V0.1"
 #define CONFIG_SYSINFO_BOARD_Version                  	"V0.1"
@@ -23,7 +23,7 @@
 
 typedef struct _ident_infor {
     char    type[SYSINFO_SIZE];
-    char    product_sn[SYSINFO_SIZE];
+    BIT32    product_sn;
     char    pcbver[SYSINFO_SIZE];
     char    pcbaver[SYSINFO_SIZE];
     char    board_sn[SYSINFO_SIZE];

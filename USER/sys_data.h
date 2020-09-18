@@ -21,18 +21,33 @@ typedef struct _weighparam	{
 	float A;//校准多项式参数
 	float B;
 	float C;
-}__weighparam_t;
+}_weighparam_t;
 //系统数据
 typedef struct _sys_data	{
 	u16 capacity;
 	u16 speed;
+	u16 weigh;//实际测得的重量，单位为克
+	u16 bat;
 	
 }_sys_data_t;
+//Y1
+//Bit0 – 保留；
+//Bit1 – 保留；
+//Bit2 – 保留；
+//Bit3 – 保留；
+//Bit4 – 重量突变；
+//Bit5—设置药袋异常；
+//Bit6—电池电量低；
+//Bit7—气泡报警
+typedef struct _syserror	{
+	BIT8 Y1;
+}_syserror_t;
 
 extern _sys_t Sys;
 extern _sys_data_t SysData;
 extern _sys_setparam_t SysParm;
-extern __weighparam_t WeighParam;
+extern _weighparam_t WeighParam;
+extern _syserror_t SysError;
 
 void SysDataInit(void);
 void ReadUserDataFromEEPROM(void);
