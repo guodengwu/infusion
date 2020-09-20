@@ -1,6 +1,6 @@
 #include "ad7799.h"
 
-#define	AD7799_REF_VOLTAGE		(5120) //参考电压 mV 3304
+#define	AD7799_REF_VOLTAGE		(4500) //参考电压 mV 3304
 #define	DEFAULT_VDD						(float)(3.3)
 #define	AD7799_FACTOR	((FP32)AD7799_REF_VOLTAGE/(FP32)0x1000000)
 _ad7799_t ad7799;
