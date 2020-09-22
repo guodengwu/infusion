@@ -51,18 +51,18 @@ void CalcBattray(void)
 	u16 advol,bat_vol;
 	
 	advol = GetBattaryVol();
-	if(advol<2000)	
+	if(advol<1000)	
 		return;
 	bat_vol =advol*2;
 	if(bat_vol>=5000)	{
 		SysData.bat = BAT_3;
 		SysError.Y1.bits.b6 = DEF_False;
 	}
-	else if(bat_vol>=4300)	{
+	else if(bat_vol>=4300&&bat_vol<4900)	{
 		SysData.bat = BAT_2;
 		SysError.Y1.bits.b6 = DEF_False;
 	}
-	else if(bat_vol>=4000)	{
+	else if(bat_vol>=4000&&bat_vol<4200)	{
 		SysData.bat = BAT_1;
 	}
 	else if(bat_vol<3900/*00&&bat_vol>=3850*/)	{//µçÁ¿µÍ±¨¾¯
@@ -82,7 +82,14 @@ void SysMonitorTaskProcess(void)
 	CheckSysAlarm();
 	SaveUserDataToEEPROM();
 	if(Sys.state & SYSSTATE_SHUTDOWN)	{
-		SysShutdown();
+		static u8 shutdowncnt;
+		shutdowncnt ++;
+		if(shutdowncnt>10)	{
+			shutdowncnt = 0;
+			Sys.state &= ~SYSSTATE_SHUTDOWN;
+			lcd12864_FillRAM(0, LCD_PAGE_MAX, 0, LCD_COL_MAX, 0);			
+			SysShutdown();
+		}
 	}
 }
 

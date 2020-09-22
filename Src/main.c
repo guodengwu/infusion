@@ -59,7 +59,7 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+u8 power_key_cnt;
 /* USER CODE END 0 */
 
 /**
@@ -94,6 +94,18 @@ PWRCTRL_SYSON();
   MX_USART1_UART_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
+  for(;;)	{
+	if(!HAL_GPIO_ReadPin(KEY1_GPIO_Port, KEY1_Pin))	{//长按2s电源键开机
+		power_key_cnt++;
+		if(power_key_cnt>20)	{
+			break;
+		}
+	}else	{
+		power_key_cnt=0;
+		PWRCTRL_SYSOFF();
+	}
+	delay_ms(100);
+  }
 bsp_poweron();
 bsp_selftest();
 SysDataInit();

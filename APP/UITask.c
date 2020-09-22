@@ -24,7 +24,7 @@ static void RereshDisplay(s8 screen_id, u8 param)
 	switch(screen_id)	{
 		case UIID_CAPACITY:
 //			ConfirmCapacityUI(SysData.capacity);
-			ConfirmCapacityUI(ad7799.vol[0]);
+			ConfirmCapacityUI(ad7799.vol[1]);
 			break;
 		case UIID_CALI_ZERO://重量0点校准界面
 			WeighZeroCalibrateUI();

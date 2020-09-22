@@ -6,7 +6,7 @@ void delay_ms(u16 ms)
    u16 i=0;  
    while(ms--)
    {
-      i=20000;  //自己定义
+      i=4500;  //自己定义
       while(i--) ;    
    }
 }

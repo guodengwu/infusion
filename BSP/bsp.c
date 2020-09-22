@@ -16,10 +16,10 @@ void bsp_poweron(void)
 	PWRCTRL_SYS5V(PWR_ON);
 	PWRCTRL_AD5V(PWR_ON);
 	PWRCTRL_AD3_3V(PWR_ON);
-	PWRCTRL_LCD5V(PWR_ON);
+	PWRCTRL_LCDBK(PWR_ON);
 	PWRCTRL_LCD3_3V(PWR_ON);
 	PWRCTRL_BLE(PWR_ON);
-	HAL_Delay(10);
+//	HAL_Delay(10);
 }
 
 void bsp_selftest(void)
@@ -41,5 +41,7 @@ void bsp_selftest(void)
 
 void SysShutdown(void)
 {
+	PWRCTRL_LCDBK(PWR_OFF);
+	PWRCTRL_LCD3_3V(PWR_OFF);
 	PWRCTRL_SYSOFF();
 }
