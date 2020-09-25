@@ -15,7 +15,7 @@ usart_t      usart;
 
 static void UART_DataInit(void)
 {
-	usart.port = &huart1;
+	usart.port = &huart2;
 	usart.rx_state     = PRO_RX_STATE_SD0;
     usart.rx_idx       = 0;
     usart.rx_cnt       = 0;
@@ -36,7 +36,12 @@ static void UART_DataInit(void)
     usart.rx_indicate  = &uart_message_rx_handler;
     //usart.tx_complete  = &uart_message_tx_handler;
 }
-
+//串口数据发送完成
+//void usart1_dma_callback(DMA_HandleTypeDef *hdma)
+//{
+//	usart.tx_flag = DEF_Idle;
+//	usart.tx_state = TX_STATE_NONE;
+//}
 //打包发送数据
 static void usart_senddata(uint8_t cmd, uint8_t *pdata, uint8_t len)
 {
@@ -66,20 +71,25 @@ static uint8_t uart_message_rx_handler(usart_t *pUsart, uint8_t rx_dat)
 {
     switch (pUsart->rx_state) {
         case PRO_RX_STATE_SD0:                     /* waiting for start first  start delimiter (SD0)  */
-            pUsart->rx_devid = rx_dat;
-            pUsart->rx_state = PRO_RX_STATE_SD1; 
+            if(rx_dat == g_sys_infor.pident->product_sn.ubyte[0])
+                pUsart->rx_state = PRO_RX_STATE_SD1; 
+            else 
+                pUsart->rx_state = PRO_RX_STATE_SD0;
             break;
         case PRO_RX_STATE_SD1:
-            pUsart->rx_devid |= rx_dat<<8;
-            pUsart->rx_state = PRO_RX_STATE_SD2; 
+            if(rx_dat == g_sys_infor.pident->product_sn.ubyte[1])
+                pUsart->rx_state = PRO_RX_STATE_SD2; 
+            else 
+                pUsart->rx_state = PRO_RX_STATE_SD0; 
             break;
         case PRO_RX_STATE_SD2:
-            pUsart->rx_devid |= rx_dat<<16;
-            pUsart->rx_state = PRO_RX_STATE_SD3; 
+            if(rx_dat == g_sys_infor.pident->product_sn.ubyte[2])
+                pUsart->rx_state = PRO_RX_STATE_SD3; 
+            else 
+                pUsart->rx_state = PRO_RX_STATE_SD0;
             break;
         case PRO_RX_STATE_SD3:
-            pUsart->rx_devid |= rx_dat<<24;
-            if(pUsart->rx_devid == g_sys_infor.pident->product_sn.uword) {
+            if(rx_dat == g_sys_infor.pident->product_sn.ubyte[3]) {
                 pUsart->rx_state = PRO_RX_STATE_LEN;              
                 pUsart->rx_idx   = 0;
                 pUsart->rx_cnt   = 0;
@@ -143,7 +153,18 @@ static void UsartCmdReply(void)
 		return;
 	}
 	switch(pUsart->tx_state)	{
-		
+        case _CMD_GET_ADVALUE:
+            usart_senddata(_CMD_GET_ADVALUE, data_buf, pUsart->tx_idx);
+            break;
+		case _CMD_GET_WEIGH:
+            usart_senddata(_CMD_GET_WEIGH, data_buf, pUsart->tx_idx);
+            break;
+        case _CMD_GET_SYSINFOR:
+            break;
+        case _CMD_SET_WEIGHZERO:
+            break;
+        case _CMD_SET_WEIGH_CALIPARAM:
+            break;
 	}
 }
 
@@ -152,6 +173,7 @@ static void  UsartCmdProcess (void)
 {
 	uint8_t cmd,iPara,idx;
 	usart_t *pUsart = &usart;
+    u16 data;
 
 	if(pUsart->rx_flag==DEF_False)	{//无数据接收 返回
 		return;
@@ -160,7 +182,34 @@ static void  UsartCmdProcess (void)
 	if (pUsart->rx_err == MSG_ERR_NONE) {//数据解析无错误
 		cmd = UsartRxGetINT8U(pUsart->rx_buf,&pUsart->rx_idx);                                 /* First byte contains command      */
 		switch(cmd)	{	
-			
+			case _CMD_GET_ADVALUE:
+                iPara = UsartRxGetINT8U(pUsart->rx_buf,&pUsart->rx_idx);
+                if(iPara==0x00) {//读取称重传感器电压
+                    data = GetWeighVol();
+                    
+                }else if(iPara==0x01)   {//读取电池电压
+                    data = GetBattaryVol();
+                }else
+                    return;
+                data_buf[idx++] = data&0xff;
+                data_buf[idx++] = data>>8;
+                pUsart->tx_idx = idx;
+                pUsart->tx_state = cmd;
+                break;
+            case _CMD_GET_WEIGH:
+                data_buf[idx++] = SysData.weigh&0xff;
+                data_buf[idx++] = SysData.weigh>>8;
+                pUsart->tx_idx = idx;
+                pUsart->tx_state = cmd;
+                break;
+            case _CMD_GET_SYSINFOR:
+                iPara = UsartRxGetINT8U(pUsart->rx_buf,&pUsart->rx_idx);
+//                if(iPara==)
+                break;
+            case _CMD_SET_WEIGHZERO:
+                break;
+            case _CMD_SET_WEIGH_CALIPARAM:
+                break;
 		}
 	}else {//数据解析异常
         pUsart->rx_err = MSG_ERR_NONE;        // clear rx error

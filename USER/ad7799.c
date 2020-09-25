@@ -168,6 +168,11 @@ u8 StartADDataCollect(void)
 	return 0;
 }
 
+u16 GetWeighVol(void)
+{
+	return ad7799.vol[0];
+}
+
 u16 GetBattaryVol(void)
 {
 	return ad7799.vol[1];

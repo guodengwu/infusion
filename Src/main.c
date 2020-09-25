@@ -117,7 +117,7 @@ ble_getmac();
 ble_getfwver();
 ble_setadvinter(6);
   /* USER CODE END 2 */
-//PaiQiUI(0xff);
+
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)

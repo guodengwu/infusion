@@ -40,9 +40,9 @@
 typedef enum { 
     _CMD_REPORT_SYSINFOR			=	0X00,//上报系统信息
     _CMD_EXECUTE_SYS_INFOR			=	0X02,//执行系统配置信息修改
-	_CMD_READ_ADVALUE 	=	0xE0,//读取AD测量值
-	_CMD_READ_WEIGH 	=	0xE1,//读取重量值
-	_CMD_READ_SYSINFOR 	=	0xE2,//读取设备信息
+	_CMD_GET_ADVALUE 	=	0xE0,//读取AD测量值
+	_CMD_GET_WEIGH 	=	0xE1,//读取重量值
+	_CMD_GET_SYSINFOR 	=	0xE2,//读取设备信息
 	_CMD_SET_WEIGHZERO 	=	0xE3,//重量零点标定
 	_CMD_SET_WEIGH_CALIPARAM 	=	0xE4,//设置重量校准参数
 } EMessageCmd;
