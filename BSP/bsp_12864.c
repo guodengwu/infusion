@@ -101,6 +101,7 @@ u8 lcd12864_SetContrast(u8 contrast)
 		lcd12864_wrcmd(0x81);            // E-Vol setting
 		lcd12864_wrcmd(SysParm.LcdContrastLevel);   // (2byte command)
 	}
+    return 1;
 }
 //-----------------------------------
 // 显示任意一副图片

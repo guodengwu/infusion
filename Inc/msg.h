@@ -18,8 +18,4 @@ typedef struct _message_pkt {
     void         *Data;       // 消息参数
 } message_pkt_t;
 
-INT8U  UsartRxGetINT8U(u8 *buf,INT32U *idx);
-INT16U  UsartRxGetINT16U(u8 *buf,INT32U *idx);
-INT32U  UsartRxGetINT32U(u8 *buf,INT32U *idx);
-
 #endif

@@ -31,7 +31,7 @@
 #include "bsp.h"
 #include "msg.h"
 //#include "timer.h"
-//#include "protocol.h"
+#include "protocol.h"
 #include "sys_data.h"
 
 #endif

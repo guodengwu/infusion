@@ -147,12 +147,12 @@ typedef volatile      signed long           VINT32S;    /* Volatile   Signed 32 
 typedef volatile    unsigned long   const   VINT32UC;   /* Volatile Unsigned 32 bit Constant          */
 //typedef volatile      signed long   const   VINT32SC;   /* Volatile   Signed 32 bit Constant          */
 /************************************* 64-bit DATA TYPE DEFINITION ************************************/
-//typedef          unsigned long long         INT64U;     /*          Unsigned 64 bit Quantity          */
-//typedef            signed long long         INT64S;     /*            Signed 64 bit Quantity          */
-//typedef          unsigned long long const   INT64UC;    /*          Unsigned 64 bit Constant          */
-//typedef            signed long long const   INT64SC;    /*            Signed 64 bit Constant          */
-//typedef volatile unsigned long long         VINT64U;    /* Volatile Unsigned 64 bit Quantity          */
-//typedef volatile   signed long long         VINT64S;    /* Volatile   Signed 64 bit Quantity          */
+typedef          unsigned long long         INT64U;     /*          Unsigned 64 bit Quantity          */
+typedef            signed long long         INT64S;     /*            Signed 64 bit Quantity          */
+typedef          unsigned long long const   INT64UC;    /*          Unsigned 64 bit Constant          */
+typedef            signed long long const   INT64SC;    /*            Signed 64 bit Constant          */
+typedef volatile unsigned long long         VINT64U;    /* Volatile Unsigned 64 bit Quantity          */
+typedef volatile   signed long long         VINT64S;    /* Volatile   Signed 64 bit Quantity          */
 //typedef volatile unsigned long long const   VINT64UC;   /* Volatile Unsigned 64 bit Constant          */
 //typedef volatile   signed long long const   VINT64SC;   /* Volatile   Signed 64 bit Constant          */
 /************************************* Float DATA TYPE DEFINITION *************************************/

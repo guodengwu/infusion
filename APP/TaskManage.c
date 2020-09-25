@@ -4,6 +4,7 @@
 #include "BLETask.h"
 #include "UITask.h"
 #include "SysMonitorTask.h"
+#include "UartTask.h"
 
 SYS_TIM  SysTim;
 volatile u8	_1MS_Event;
@@ -25,6 +26,7 @@ void SysTaskInit(void)
 	BLETaskInit();
 	UITaskInit();
 	SysMonitorTaskInit();
+	UartTaskInit();
 }
 //运行所有的任务
 void RunTask(void)
@@ -43,6 +45,7 @@ void RunTask(void)
 		_1S_Event = 0;
 		BLETaskProcess();
 	}
+	UartTaskProcess();
 }
 //任务tick
 void TaskTick(void)
