@@ -66,13 +66,13 @@ void CalcBattray(void)
 		SysData.bat = BAT_1;
 	}
 	else if(bat_vol<3900/*00&&bat_vol>=3850*/)	{//电量低报警
-		SysData.bat = BAT_0;
-		SysError.Y1.bits.b6 = DEF_True;
-		if(bat_vol<3800)	{//电量耗尽
-			msg_pkt_monitor.Src = MSG_UI;
-			msg_pkt_monitor.Cmd = UIID_POWERDEAD;
-			StartUITask(&msg_pkt_monitor);
-		}
+//		SysData.bat = BAT_0;
+//		SysError.Y1.bits.b6 = DEF_True;
+//		if(bat_vol<3800)	{//电量耗尽
+//			msg_pkt_monitor.Src = MSG_UI;
+//			msg_pkt_monitor.Cmd = UIID_POWERDEAD;
+//			StartUITask(&msg_pkt_monitor);
+//		}
 	}
 }
 
@@ -86,7 +86,7 @@ void SysMonitorTaskProcess(void)
 		shutdowncnt ++;
 		if(shutdowncnt>10)	{
 			shutdowncnt = 0;
-			Sys.state &= ~SYSSTATE_SHUTDOWN;
+//			Sys.state &= ~SYSSTATE_SHUTDOWN;
 			lcd12864_FillRAM(0, LCD_PAGE_MAX, 0, LCD_COL_MAX, 0);			
 			SysShutdown();
 		}

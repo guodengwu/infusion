@@ -24,7 +24,7 @@ static void RereshDisplay(s8 screen_id, u8 param)
 	switch(screen_id)	{
 		case UIID_CAPACITY:
 //			ConfirmCapacityUI(SysData.capacity);
-			ConfirmCapacityUI(ad7799.vol[1]);
+			ConfirmCapacityUI(ad7799.vol[0]);
 			break;
 		case UIID_CALI_ZERO://重量0点校准界面
 			WeighZeroCalibrateUI();
@@ -72,6 +72,8 @@ void UITaskProcess(void)
 	u8 keyvalue,ret;
 	static u8 timecnt;
 	
+    if(Sys.state & SYSSTATE_SHUTDOWN)	
+        return;
 	ret = RingBuffer_Pop(&UI_Ringbuf, &msg);//获取按钮值
 	if(msg.Src != MSG_NONE&&ret!=0)//按键事件有效
 	{		

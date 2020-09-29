@@ -49,12 +49,11 @@ void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, LCD_A0_Pin|Bub5V_CTRL_Pin|PWR_CTRL_Pin|LCD5V_CTRL_Pin 
-                          |LCD_BK_CTRL_Pin|LCD3_3V_CTRL_Pin|LED_BLUE_Pin|LED_YELLOW_Pin 
-                          |LED_RED_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOC, Bub5V_CTRL_Pin|PWR_CTRL_Pin|LCD5V_CTRL_Pin|LCD_BK_CTRL_Pin 
+                          |LCD3_3V_CTRL_Pin|LED_BLUE_Pin|LED_YELLOW_Pin|LED_RED_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, PWR_5V_CTRL_Pin|AD7799_CS_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOA, PWR_5V_CTRL_Pin|AD7799_CS_Pin|LCD_A0_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOC, AD5V_CTRL_Pin|BEEP_Pin, GPIO_PIN_RESET);
@@ -67,13 +66,6 @@ void MX_GPIO_Init(void)
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(BLE_SHDN_GPIO_Port, BLE_SHDN_Pin, GPIO_PIN_RESET);
-
-  /*Configure GPIO pin : PtPin */
-  GPIO_InitStruct.Pin = LCD_A0_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(LCD_A0_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PCPin PCPin PCPin PCPin 
                            PCPin PCPin PCPin */
@@ -103,12 +95,12 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : PtPin */
-  GPIO_InitStruct.Pin = AD7799_CS_Pin;
+  /*Configure GPIO pins : PAPin PAPin */
+  GPIO_InitStruct.Pin = AD7799_CS_Pin|LCD_A0_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(AD7799_CS_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PBPin PBPin PBPin PBPin */
   GPIO_InitStruct.Pin = KEY4_Pin|Bub_State_Pin|BLE_STATE_Pin|BLE_DIN_Pin;

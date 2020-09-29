@@ -58,8 +58,6 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define LCD_A0_Pin GPIO_PIN_0
-#define LCD_A0_GPIO_Port GPIOC
 #define Bub5V_CTRL_Pin GPIO_PIN_1
 #define Bub5V_CTRL_GPIO_Port GPIOC
 #define PWR_CTRL_Pin GPIO_PIN_2
@@ -101,6 +99,8 @@ void Error_Handler(void);
 #define LCD_BK_CTRL_GPIO_Port GPIOC
 #define LCD3_3V_CTRL_Pin GPIO_PIN_9
 #define LCD3_3V_CTRL_GPIO_Port GPIOC
+#define LCD_A0_Pin GPIO_PIN_8
+#define LCD_A0_GPIO_Port GPIOA
 #define BLE_UART_TX_Pin GPIO_PIN_9
 #define BLE_UART_TX_GPIO_Port GPIOA
 #define BLE_UART_RX_Pin GPIO_PIN_10
