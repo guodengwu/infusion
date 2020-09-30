@@ -215,7 +215,7 @@ static void  UsartCmdProcess (void)
         pUsart->rx_err = MSG_ERR_NONE;        // clear rx error
     }
     pUsart->rx_flag = 0;//清解析完成标志
-	__HAL_UART_ENABLE_IT(&huart1, UART_IT_RXNE);
+	__HAL_UART_ENABLE_IT(usart.port, UART_IT_RXNE);
 }
 
 void UartTaskInit(void)

@@ -169,10 +169,10 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
     if(GPIO_Pin == BLE_DON_Pin) /* KEY0 */
     {
 		data = HAL_GPIO_ReadPin(BLE_DON_GPIO_Port, BLE_DON_Pin);
-		ble_ready2rec(data);
+		ble_ready2rec(data);//ble数据接受切换
     }
 	else if(GPIO_Pin == Bub_Det_Pin)	{
-		if(!HAL_GPIO_ReadPin(Bub_Det_GPIO_Port, Bub_Det_Pin))	{
+		if(!HAL_GPIO_ReadPin(Bub_Det_GPIO_Port, Bub_Det_Pin))	{//有气泡
 			SysError.Y1.bits.b7 = DEF_True;
 		}
 	}
