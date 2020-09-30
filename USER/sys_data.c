@@ -12,6 +12,7 @@ _syserror_t SysErrorBk;
 void SysDataInit(void)
 {
 	Sys.state = SYSSTATE_NONE;
+    Sys.ledstate = LED_NONE;
 	SysData.capacity = 0xffff;
 	SysData.speed = 0xffff;
 	SysData.bat = BAT_3;

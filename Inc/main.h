@@ -107,12 +107,12 @@ void Error_Handler(void);
 #define BLE_UART_RX_GPIO_Port GPIOA
 #define BLE_SHDN_Pin GPIO_PIN_11
 #define BLE_SHDN_GPIO_Port GPIOA
-#define LED_BLUE_Pin GPIO_PIN_10
-#define LED_BLUE_GPIO_Port GPIOC
+#define LED_RED_Pin GPIO_PIN_10
+#define LED_RED_GPIO_Port GPIOC
 #define LED_YELLOW_Pin GPIO_PIN_11
 #define LED_YELLOW_GPIO_Port GPIOC
-#define LED_RED_Pin GPIO_PIN_12
-#define LED_RED_GPIO_Port GPIOC
+#define LED_BLUE_Pin GPIO_PIN_12
+#define LED_BLUE_GPIO_Port GPIOC
 #define BLE_WAKEUP_Pin GPIO_PIN_5
 #define BLE_WAKEUP_GPIO_Port GPIOB
 #define BLE_DON_Pin GPIO_PIN_6

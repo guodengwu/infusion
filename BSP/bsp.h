@@ -42,15 +42,19 @@
 #define	LED_RED_OFF()				HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin,GPIO_PIN_SET)
 #define	LED_YELLOW_ON()				HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin,GPIO_PIN_RESET)
 #define	LED_YELLOW_OFF()				HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin,GPIO_PIN_SET)
-#define	LED_BLUE_ON()				HAL_GPIO_WritePin(LED_BLUE_GPIO_Port, LED_BLUE_Pin,GPIO_PIN_RESET)
-#define	LED_BLUE_OFF()				HAL_GPIO_WritePin(LED_BLUE_GPIO_Port, LED_BLUE_Pin,GPIO_PIN_SET)
+#define	LED_GREEN_ON()				HAL_GPIO_WritePin(LED_BLUE_GPIO_Port, LED_BLUE_Pin,GPIO_PIN_RESET)
+#define	LED_GREEN_OFF()				HAL_GPIO_WritePin(LED_BLUE_GPIO_Port, LED_BLUE_Pin,GPIO_PIN_SET)
+
+#define	LED_RED_TWINKLE()				HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin)
+#define	LED_YELLOW_TWINKLE()				HAL_GPIO_TogglePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin)
+#define	LED_GREEN_TWINKLE()				HAL_GPIO_TogglePin(LED_BLUE_GPIO_Port, LED_BLUE_Pin)
 
 #define	BEEP_ON()		HAL_GPIO_WritePin(BEEP_GPIO_Port, BEEP_Pin, GPIO_PIN_SET)
 #define	BEEP_OFF()		HAL_GPIO_WritePin(BEEP_GPIO_Port, BEEP_Pin, GPIO_PIN_RESET)
 
 enum	{
 	LED_NONE=0,
-	LED_BLUE=0x01,
+	LED_YELLOW=0x01,
 	LED_GREEN=0x02,
 	LED_RED=0X03,
 };
@@ -59,4 +63,5 @@ void	bsp_init(void);
 void bsp_poweron(void);
 void bsp_selftest(void);
 void SysShutdown(void);
+void led_twinkle(void);
 #endif

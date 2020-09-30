@@ -44,6 +44,7 @@ void RunTask(void)
 	if(_1S_Event)	{
 		_1S_Event = 0;
 		BLETaskProcess();
+        led_twinkle();
 	}
 	UartTaskProcess();
 }

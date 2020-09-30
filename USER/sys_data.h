@@ -4,9 +4,10 @@
 #include "includes.h"
 
 #define SYSSTATE_NONE							0
-//#define SYSSTATE_SHUTDOWN_TB				DEF_BIT00_MASK
-//#define SYSSTATE_SHUTDOWN_YES					DEF_BIT01_MASK
-#define SYSSTATE_SHUTDOWN					DEF_BIT02_MASK
+#define SYSSTATE_INFUSION_COMPLETE				DEF_BIT00_MASK
+#define SYSSTATE_INFUSION_TBE				DEF_BIT01_MASK
+//#define SYSSTATE_RLED_TWINKLE				DEF_BIT02_MASK
+#define SYSSTATE_SHUTDOWN					DEF_BIT03_MASK
 
 enum _battary {
 	BAT_3,
@@ -17,6 +18,7 @@ enum _battary {
 
 typedef struct _sys_status	{
 	volatile u32 state;
+    u8 ledstate;
 }_sys_t;
 //系统设置参数
 typedef struct _sys_setparam	{

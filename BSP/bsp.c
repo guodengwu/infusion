@@ -24,10 +24,10 @@ void bsp_poweron(void)
 
 void bsp_selftest(void)
 {
-	LED_BLUE_ON();
+	LED_GREEN_ON();
 	HAL_Delay(600);
 	
-	LED_BLUE_OFF();	
+	LED_GREEN_OFF();	
 	LED_YELLOW_ON();
 	HAL_Delay(600);
 	
@@ -44,4 +44,23 @@ void SysShutdown(void)
 	PWRCTRL_LCDBK(PWR_OFF);
 	PWRCTRL_LCD3_3V(PWR_OFF);
 	PWRCTRL_SYSOFF();
+}
+
+void led_twinkle(void)
+{
+    if(Sys.ledstate == LED_RED) {
+        LED_YELLOW_OFF();
+        LED_GREEN_OFF();	
+        LED_RED_TWINKLE();
+    }
+    else if(Sys.ledstate == LED_GREEN) {
+        LED_YELLOW_OFF();
+        LED_RED_OFF();	
+        LED_GREEN_TWINKLE();
+    }
+    else if(Sys.ledstate == LED_YELLOW) {
+        LED_RED_OFF();
+        LED_GREEN_OFF();	
+        LED_YELLOW_TWINKLE();
+    }     
 }

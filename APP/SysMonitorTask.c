@@ -76,11 +76,25 @@ void CalcBattray(void)
 	}
 }
 
+void SysLedCtrl(void)
+{
+    if(SysError.Y1.ubyte != DEF_False || Sys.state&SYSSTATE_INFUSION_COMPLETE)    {//π ’œ or  ‰“∫Ω· ¯
+        Sys.ledstate = LED_RED;
+    }
+    else if(Sys.state&SYSSTATE_INFUSION_TBE)   {// ‰“∫º¥Ω´Ω· ¯
+        Sys.ledstate = LED_YELLOW;
+    }
+    else    {
+        Sys.ledstate = LED_GREEN;
+    }   
+}
+
 void SysMonitorTaskProcess(void)
 {
 	CalcBattray();
 	CheckSysAlarm();
 	SaveUserDataToEEPROM();
+    SysLedCtrl();
 	if(Sys.state & SYSSTATE_SHUTDOWN)	{
 		static u8 shutdowncnt;
 		shutdowncnt ++;
